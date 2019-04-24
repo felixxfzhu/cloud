@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { version, Button } from "antd";
 import "antd/dist/antd.css";
 
+import {Head} from "./../components/commom"
+
 class Login extends React.Component {
     constructor (props) {
         super(props);
@@ -14,12 +16,26 @@ class Login extends React.Component {
         }
 
     }
+    changeUsername(e) {
+        this.setState({
+            username:e.target.value,
+            tip:""
+        })
+
+    }
+    changePassword (e) {
+        this.setState({
+            password:e.target.value,
+            tip:""
+        })
+    }
     render(){
         return (
-            <div id="login" className="login">
-                <div className="content">this is login page</div>
+            <div id="login-page" className="page">
+                this is login page
             </div>
         )
     }
 }
 export default Login;
+

@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'iconfont';  /* project id 1160797 */
+  src: url('//at.alicdn.com/t/font_1160797_evd7pjl9eni.eot');
+  src: url('//at.alicdn.com/t/font_1160797_evd7pjl9eni.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1160797_evd7pjl9eni.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1160797_evd7pjl9eni.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1160797_evd7pjl9eni.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1160797_evd7pjl9eni.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-denglu:before {content: "\e633";}
+.icon-HSBC:before {content: "\e6ac";}
+
+
+.iconfont:before{font-size: 30px!important;}
+.iconfont:after{font-size: 16px!important;}
+
+*{ margin: 0; padding: 0; box-sizing: border-box;}
+li { list-style: none}
+img{border:0;}
+a{text-decoration: none;}
+body,html { height: 100%; overflow: hidden}
+
+.page, .header, .content, .footer {width: 100%; }
+
+.header {height: 50px;}
+.icon-HSBC{color: red;}
