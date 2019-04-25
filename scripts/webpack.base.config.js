@@ -31,9 +31,13 @@ const webpackConfigBase = {
             {
                 test:/\.css$/,
                 use:['style-loader','css-loader']
+            },
+            {
+                test: /\.(eot|svg|ttf|woff)\??.*$/,
+                loader: 'url-loader?name=fonts/[name].[hash:7].[ext]'
             }
         ]
-    },
-   
+    }   
 };
+
 module.exports = webpackConfigBase;
