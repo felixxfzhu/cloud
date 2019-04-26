@@ -13,20 +13,26 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-denglu:before {content: "\e633";}
+.icon-denglu:after {content: "\e633";}
 .icon-HSBC:before {content: "\e6ac";}
 
 
-.iconfont:before{font-size: 30px!important;}
+.iconfont:before{font-size: 32px!important;}
 .iconfont:after{font-size: 16px!important;}
 
 *{ margin: 0; padding: 0; box-sizing: border-box;}
 li { list-style: none}
 img{border:0;}
-a{text-decoration: none;}
-body,html { height: 100%; overflow: hidden}
+body a{text-decoration: none; color: black;}
+body,html { height: 100%; min-width: 600px; overflow: hidden;}
 
 .page, .header, .content, .footer {width: 100%; }
-
-.header {height: 50px;}
 .icon-HSBC{color: red;}
+
+.header {height: 91px;padding:20px 8%;border-bottom: 1px solid #DDD;}
+.header .logoName{font-size: 28px; padding: 0 10px;line-height: 50px;}
+.header .login{float:right; padding: 0 10px;height: 50px;line-height: 50px;}
+.header .language{float: right; padding: 0 10px;height: 50px;line-height: 50px;}
+.header .language button{border: none;box-shadow: none;}
+
+
