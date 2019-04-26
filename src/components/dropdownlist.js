@@ -12,16 +12,7 @@ class Dropdownlist extends React.Component {
         this.handleMenuClick = this.handleMenuClick.bind(this);
         this.state = {
             language:this.props.language,
-            menulist:this.props.menulist,
-            menu:(
-                <Menu onClick={this.handleMenuClick}>
-                    {
-                        this.props.menulist.map((e,i)=>
-                            <Menu.Item key={i}>{e}</Menu.Item>
-                        )
-                    }
-                </Menu>
-            )
+            menulist:this.props.menulist
         };
         Object.assign(this.state,this.props);
     }
@@ -34,9 +25,18 @@ class Dropdownlist extends React.Component {
         this.props.getDropdownlistdata(this.props.menulist[e.key])
     }
     render() {
+        const menu = (
+            <Menu onClick={this.handleMenuClick}>
+                {
+                    this.props.menulist.map((e,i)=>
+                        <Menu.Item key={i}>{e}</Menu.Item>
+                    )
+                }
+            </Menu>
+        )
         return (
             <div>
-                <Dropdown overlay={this.state.menu}>
+                <Dropdown overlay={menu}>
                     <Button style={{ marginLeft: 8 }}>
                         {this.state.language} <Icon type="down" />
                     </Button>

@@ -7,24 +7,25 @@ import { version, Button } from "antd";
 import "antd/dist/antd.css";
 
 import { Head, Footer } from "./../components/commom";
-class Home extends React.Component {
+class PresonalInfo extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
             info:{
                 language: "Language",
                 menulist: ["Chinese", "English"],
-                profile:"Login",
-                toLink:"/presonalInfo/",
-                icon:"icon-denglu"
+                profile:"Angela",
+                toLink:"/login/",
+                icon:"icon-settings"
             }
         };
+
     }
     render(){
         return (
-            <div id="home" className="page home">
+            <div id="home" className="page presonalInfo">
                 <Head info={this.state.info} ></Head>
-                <div className="content">this is home page</div>
+                <div className="content">this is presonalInfo page</div>
                 <Footer>
                     <Link to="/login/">
                     </Link>
@@ -34,4 +35,4 @@ class Home extends React.Component {
         )
     }
 }
-export default Home;
+export default PresonalInfo;

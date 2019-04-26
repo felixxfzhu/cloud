@@ -5,6 +5,10 @@ import "./components/commom.css"
 
 import Home from "./view/home";
 import Login from "./view/login";
+import Detial from "./view/detial";
+import Cart from "./view/cart";
+import PresonalInfo from "./view/presonalInfo";
+
 console.log(process.env.NODE_ENV);
 export default class Root extends React.Component{
     render(){
@@ -14,6 +18,9 @@ export default class Root extends React.Component{
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/login" component={Login} />
+                        <Route path="/cart" component={Cart} />
+                        <Route path="/detial" component={Detial} />
+                        <Route path="/presonalInfo" component={PresonalInfo} />
                         <Redirect from='/' to='/login/'></Redirect>
                     </Switch>
                 </div>

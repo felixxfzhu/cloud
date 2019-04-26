@@ -1,9 +1,9 @@
 @font-face {font-family: "iconfont";
-  src: url(../font/iconfont.eot?t=1556113931933); /* IE9 */
-  src: url(../font/iconfont.eot?t=1556113931933#iefix) format('embedded-opentype'), /* IE6-IE8 */
-  url(../font/iconfont.woff?t=1556113931933) format('woff'),
-  url(../font/iconfont.ttf?t=1556113931933) format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  url(../font/iconfont.svg?t=1556113931933#iconfont) format('svg'); /* iOS 4.1- */
+  src: url(../font/iconfont.eot?t=1556283010977); /* IE9 */
+  src: url(../font/iconfont.eot?t=1556283010977#iefix) format('embedded-opentype'), /* IE6-IE8 */
+  url(../font/iconfont.woff?t=1556283010977) format('woff'),
+  url(../font/iconfont.ttf?t=1556283010977) format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url(../font/iconfont.svg?t=1556283010977#iconfont) format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -15,24 +15,37 @@
 }
 .icon-denglu:after {content: "\e633";}
 .icon-HSBC:before {content: "\e6ac";}
-
+.icon-settings:after {content: "\e7c7";}
 
 .iconfont:before{font-size: 32px!important;}
-.iconfont:after{font-size: 16px!important;}
+.iconfont:after{font-size: 18px!important;}
 
 *{ margin: 0; padding: 0; box-sizing: border-box;}
-li { list-style: none}
+li { list-style: none;}
 img{border:0;}
-body a{text-decoration: none; color: black;}
-body,html { height: 100%; min-width: 600px; overflow: hidden;}
+body a{text-decoration: none;}
+body, html{height: 100%; min-width: 600px; overflow: hidden;}
 
 .page, .header, .content, .footer {width: 100%; }
 .icon-HSBC{color: red;}
 
 .header {height: 91px;padding:20px 8%;border-bottom: 1px solid #DDD;}
+.header a{color: black;}
 .header .logoName{font-size: 28px; padding: 0 10px;line-height: 50px;}
 .header .login{float:right; padding: 0 10px;height: 50px;line-height: 50px;}
 .header .language{float: right; padding: 0 10px;height: 50px;line-height: 50px;}
 .header .language button{border: none;box-shadow: none;}
 
+/* home */
 
+/* login */
+.login .content{padding: 70px 25%;text-align: center;}
+.login .content .login-form-button{display: block;}
+.login .content .login-form{margin: 0 auto; width: 300px;height: 500px;}
+.login .content .ant-checkbox-wrapper{float: left;}
+.login .content .login-form-forgot{float: right;}
+.login .content button{width: 100%;}
+
+/* presonalInfo */
+
+/* detial */
