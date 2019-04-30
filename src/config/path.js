@@ -3,7 +3,10 @@
  */
 const Paths = {
     host:"https://www.bai.cn",
-    getdata:"/search/index"
+    login:"/search/index",
+    home:"/home/index",
+    detail:"detial/index",
+    presonalInfo:"PresonalInfo/index"
 }
 if(process.env.NODE_ENV == "production"){
     Paths["host"] = "https://www.production.cn"

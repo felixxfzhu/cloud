@@ -25,7 +25,7 @@ function error() {
     });
 }
 const Call = {
-    responseData:function (path, parameter) {
+    getData:function (path, parameter) {
         Axios.get(path, parameter)
         .then(function (response) {
             console.log(JSON.stringify(response))
@@ -35,6 +35,17 @@ const Call = {
             console.log(error);
             this.error(JSON.stringify(error));
         })
+    },
+    postData:function (path, parameter) {
+        Axios.post(path, parameter)
+            .then(function (response) {
+                console.log(JSON.stringify(response))
+                return response;
+            })console.log(error);
+        this.error(JSON.stringify(error));
+    })
+            .catch(function (error) {
+
     }
 }
 

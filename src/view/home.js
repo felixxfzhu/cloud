@@ -10,12 +10,13 @@ import { Head, Footer } from "./../components/commom";
 class Home extends React.Component {
     constructor (props) {
         super(props);
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         this.state = {
             info:{
                 language: "Language",
                 menulist: ["Chinese", "English"],
-                profile:"Login",
-                toLink:"/presonalInfo/",
+                profile:userInfo?userInfo.userName:"Login",
+                toLink:userInfo?"/presonalInfo/":"/login/",
                 icon:"icon-denglu"
             }
         };

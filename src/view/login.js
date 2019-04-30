@@ -26,7 +26,8 @@ class LoginForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                const response = Call.responseData(Paths.host+Paths.getdata, values);
+                localStorage.setItem("userInfo",JSON.stringify((values)));
+                const response = Call.getData(Paths.host+Paths.getdata, values);
                 console.log(response);
             }
         });
