@@ -41,11 +41,11 @@ const Call = {
             .then(function (response) {
                 console.log(JSON.stringify(response))
                 return response;
-            })console.log(error);
-        this.error(JSON.stringify(error));
-    })
+            })
             .catch(function (error) {
-
+                console.log(error);
+                this.error(JSON.stringify(error));
+            })
     }
 }
 
