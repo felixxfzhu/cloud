@@ -19,7 +19,7 @@ const webpackConfigBase = {
         new HtmlWebpackPlugin({
             template:'./src/index.html'
         }),
-        new CleanWebpackPlugin(['dist'])
+        new CleanWebpackPlugin(['dist/bundle.js'])
     ],
     module:{
         rules:[

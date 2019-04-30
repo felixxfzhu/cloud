@@ -29,7 +29,7 @@ body, html{height: 100%; min-width: 600px; overflow: hidden;}
 .page, .header, .content, .footer {width: 100%; }
 .icon-HSBC{color: red;}
 
-.header {height: 91px;padding:20px 8%;border-bottom: 1px solid #DDD;}
+.header {height: 15%;padding:2.5% 8%;border-bottom: 1px solid #DDD;}
 .header a{color: black;}
 .header .logoName{font-size: 28px; padding: 0 10px;line-height: 50px;}
 .header .login{float:right; padding: 0 10px;height: 50px;line-height: 50px;}
@@ -39,9 +39,9 @@ body, html{height: 100%; min-width: 600px; overflow: hidden;}
 /* home */
 
 /* login */
-.login .content{padding: 70px 25%;text-align: center;}
+.login .content{padding: 7.5% 25%;text-align: center;heigth:60%!important}
 .login .content .login-form-button{display: block;}
-.login .content .login-form{margin: 0 auto; width: 300px;height: 500px;}
+.login .content .login-form{margin: 0 auto; width: 300px;}
 .login .content .ant-checkbox-wrapper{float: left;}
 .login .content .login-form-forgot{float: right;}
 .login .content button{width: 100%;}

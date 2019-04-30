@@ -5,12 +5,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import "antd/dist/antd.css";
-
+import Call from "../config/call";
+import Paths from "../config/path";
 import {Head} from "./../components/commom"
-
+import Dialog from "../components/dialog"
 class LoginForm extends React.Component {
     constructor (props) {
         super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state={
             info:{
                 language: "Language",
@@ -18,14 +20,17 @@ class LoginForm extends React.Component {
                 toLink:"/login/"
             }
         }
-
     }
     handleSubmit(e){
         e.preventDefault();
-        console.log('Received values of form: ', e);
-        this.props.form.getFieldsValue((values) => {
-            console.log('Received values of form: ', values);
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+                const response = Call.responseData(Paths.host+Paths.getdata, values);
+                console.log(response);
+            }
         });
+
     }
     render() {
         const { getFieldDecorator } = this.props.form;
