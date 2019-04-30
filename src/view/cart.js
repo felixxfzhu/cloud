@@ -22,7 +22,6 @@ class Cart extends React.Component {
 
     }
     render() {
-        const { getFieldDecorator } = this.props.form;
         return (
             <div className="page cart">
                 <Head info={this.state.info} ></Head>

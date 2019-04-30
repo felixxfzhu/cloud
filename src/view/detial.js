@@ -11,18 +11,19 @@ import {Head} from "./../components/commom"
 class Detial extends React.Component {
     constructor (props) {
         super(props);
-        this.state={
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        this.state = {
             info:{
                 language: "Language",
                 menulist: ["Chinese", "English"],
-                profile:"lily",
-                toLink:"/login/"
+                profile:userInfo?userInfo.userName:"Login",
+                toLink:userInfo?"/presonalInfo/":"/login/",
+                icon:"icon-denglu"
             }
-        }
+        };
 
     }
     render() {
-        const { getFieldDecorator } = this.props.form;
         return (
             <div className="page detial">
                 <Head info={this.state.info} ></Head>
