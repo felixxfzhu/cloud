@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import "./components/commom.css"
+import "antd/dist/antd.css";
 
 import Home from "./view/home";
 import Login from "./view/login";

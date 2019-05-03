@@ -1,9 +1,9 @@
 @font-face {font-family: "iconfont";
-  src: url(../font/iconfont.eot?t=1556283010977); /* IE9 */
-  src: url(../font/iconfont.eot?t=1556283010977#iefix) format('embedded-opentype'), /* IE6-IE8 */
-  url(../font/iconfont.woff?t=1556283010977) format('woff'),
-  url(../font/iconfont.ttf?t=1556283010977) format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  url(../font/iconfont.svg?t=1556283010977#iconfont) format('svg'); /* iOS 4.1- */
+  src: url(../font/iconfont.eot?t=1556806654817); /* IE9 */
+  src: url(../font/iconfont.eot?t=1556806654817#iefix) format('embedded-opentype'), /* IE6-IE8 */
+  url(../font/iconfont.woff?t=1556806654817) format('woff'),
+  url(../font/iconfont.ttf?t=1556806654817) format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url(../font/iconfont.svg?t=1556806654817#iconfont) format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -13,30 +13,54 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.iconfont:before{font-size: 32px!important;}
+.iconfont:after{font-size: 18px!important;}
+
 .icon-denglu:after {content: "\e633";}
 .icon-HSBC:before {content: "\e6ac";}
 .icon-settings:after {content: "\e7c7";}
+.icon-delete:after {content: "\e68a";}
+.icon-follow:after {content: "\e703";}
+.icon-hengxian:after {content: "\e604";font-size: 32px!important;line-height: 30px;}
+.icon-hengxian:before {content: "\e604";line-height: 30px;}
 
-.iconfont:before{font-size: 32px!important;}
-.iconfont:after{font-size: 18px!important;}
 
 *{ margin: 0; padding: 0; box-sizing: border-box;}
 li { list-style: none;}
 img{border:0;}
 body a{text-decoration: none;}
-body, html{height: 100%; min-width: 600px; overflow: hidden;}
+body, html{height: 100%; min-width: 600px;}
+html{height: 100%; min-width: 600px;}
 
 .page, .header, .content, .footer {width: 100%; }
 .icon-HSBC{color: red;}
 
-.header {height: 15%;padding:2.5% 8%;border-bottom: 1px solid #DDD;}
+.header {height: 70px;padding:10px 8%;border-bottom: 1px solid #DDD;}
 .header a{color: black;}
 .header .logoName{font-size: 28px; padding: 0 10px;line-height: 50px;}
 .header .login{float:right; padding: 0 10px;height: 50px;line-height: 50px;}
 .header .language{float: right; padding: 0 10px;height: 50px;line-height: 50px;}
 .header .language button{border: none;box-shadow: none;}
 
+/*list*/
+.search{height: 60px;width: 100%;padding: 5px 25%;}
+.list-swiper{width: 100%;height: 200px;}
+.list-swiper .list-item{width: 20%; height: 100%;float: left;padding-right: 10px;position: relative;}
+.list-swiper .list-item img{width: 100%; height: 100px;}
+.list-swiper .list-item .ant-card{width: 100%;height: 100%;}
+.list-swiper .list-item .productDetial{width: 100%;padding: 0 5px;}
+.list-swiper .productName{width: 100%;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;overflow: hidden;line-height: 20px;}
+.list-swiper div.ant-progress-outer{padding-right: 0;}
+.list-swiper .ant-progress-text{display: none;width: 0;}
+.list-swiper .price{width: 100%;text-align:right;color: red;}
+.list-swiper .funcBlock{padding: 0 15px 0 8px;width: 100%;}
+.list-swiper .funcBlock .like{float: left;color: red;width: 10px;}
+.list-swiper .funcBlock .delete{float: left;color: black;width: 10px;float: right}
+.pagination{width: 100%;height: 40px;padding-top: 15px;}
+.pagination .ant-pagination{float: right;}
 /* home */
+.home .content{padding: 10px 4%;heigth:300px;}
+.home .recommendation{width: 100%;padding: 15px 25%;line-height: 30px;font-weight: normal;font-family: Arial;font-size: 28px;text-align: center;}
 
 /* login */
 .login .content{padding: 7.5% 25%;text-align: center;heigth:60%!important}
@@ -47,5 +71,6 @@ body, html{height: 100%; min-width: 600px; overflow: hidden;}
 .login .content button{width: 100%;}
 
 /* presonalInfo */
+
 
 /* detial */
