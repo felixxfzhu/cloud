@@ -2,57 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="249e3b1b-3ec6-4df5-9afb-d30c0dc37c67" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Cloud-competition-front-end.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/10.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/11.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/12.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/13.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/14.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/15.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/16.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/17.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/18.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/19.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/20.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/21.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/22.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/23.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/24.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/25.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/26.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/27.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/28.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/29.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/30.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/31.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/32.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/33.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/34.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/6.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/7.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/8.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/img/9.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/json/list.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/webpack.prod.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/webpack.prod.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/commom.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/commom.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/commom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/commom.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/call.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/call.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/font/iconfont.eot" beforeDir="false" afterPath="$PROJECT_DIR$/src/font/iconfont.eot" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/font/iconfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/font/iconfont.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/font/iconfont.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/font/iconfont.ttf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/font/iconfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/src/font/iconfont.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/login.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -71,8 +26,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="10" lean-forward="true" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
+            <state relative-caret-position="330">
+              <caret line="22" column="44" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="44" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -83,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/home.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="90" column="118" selection-start-line="90" selection-start-column="118" selection-end-line="90" selection-end-column="118" />
+            <state relative-caret-position="135">
+              <caret line="87" column="25" lean-forward="true" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
               <folding>
                 <element signature="e#41#67#0" expanded="true" />
               </folding>
@@ -92,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dist/json/list.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="81" column="11" selection-start-line="81" selection-start-column="11" selection-end-line="81" selection-end-column="11" />
+            <state relative-caret-position="420">
+              <caret line="82" column="9" lean-forward="true" selection-start-line="82" selection-start-column="9" selection-end-line="82" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -128,17 +83,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/commom.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="58" column="35" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
+            <state relative-caret-position="375">
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/commom.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="62" column="34" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
+            <state relative-caret-position="390">
+              <caret line="80" column="148" lean-forward="true" selection-start-line="80" selection-start-column="148" selection-end-line="80" selection-end-column="148" />
               <folding>
                 <element signature="e#55#81#0" expanded="true" />
               </folding>
@@ -174,10 +129,10 @@
         <option value="$PROJECT_DIR$/scripts/webpack.prod.config.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/view/login.js" />
-        <option value="$PROJECT_DIR$/src/components/commom.js" />
-        <option value="$PROJECT_DIR$/src/components/commom.css" />
         <option value="$PROJECT_DIR$/src/view/home.js" />
         <option value="$PROJECT_DIR$/dist/json/list.json" />
+        <option value="$PROJECT_DIR$/src/components/commom.css" />
+        <option value="$PROJECT_DIR$/src/components/commom.js" />
       </list>
     </option>
   </component>
@@ -294,12 +249,12 @@
       <workItem from="1556598396682" duration="4385000" />
       <workItem from="1556614625846" duration="3939000" />
       <workItem from="1556764498818" duration="14056000" />
-      <workItem from="1556878514689" duration="17434000" />
+      <workItem from="1556878514689" duration="22115000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65314000" />
+    <option name="totallyTimeSpent" value="69995000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -453,23 +408,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/commom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="62" column="34" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
-          <folding>
-            <element signature="e#55#81#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/commom.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="58" column="35" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -480,30 +418,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
+    <entry file="file://$PROJECT_DIR$/dist/json/list.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
-          <caret line="28" column="10" lean-forward="true" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
+          <caret line="82" column="9" lean-forward="true" selection-start-line="82" selection-start-column="9" selection-end-line="82" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="17906" column="36" selection-start-line="17906" selection-start-column="36" selection-end-line="17906" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/home.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="90" column="118" selection-start-line="90" selection-start-column="118" selection-end-line="90" selection-end-column="118" />
+        <state relative-caret-position="135">
+          <caret line="87" column="25" lean-forward="true" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
           <folding>
             <element signature="e#41#67#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/json/list.json">
+    <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="81" column="11" selection-start-line="81" selection-start-column="11" selection-end-line="81" selection-end-column="11" />
+        <state relative-caret-position="330">
+          <caret line="22" column="44" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/commom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/commom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="80" column="148" lean-forward="true" selection-start-line="80" selection-start-column="148" selection-end-line="80" selection-end-column="148" />
+          <folding>
+            <element signature="e#55#81#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

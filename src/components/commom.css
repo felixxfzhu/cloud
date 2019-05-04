@@ -1,9 +1,9 @@
 @font-face {font-family: "iconfont";
-  src: url(../font/iconfont.eot?t=1556806654817); /* IE9 */
-  src: url(../font/iconfont.eot?t=1556806654817#iefix) format('embedded-opentype'), /* IE6-IE8 */
-  url(../font/iconfont.woff?t=1556806654817) format('woff'),
-  url(../font/iconfont.ttf?t=1556806654817) format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  url(../font/iconfont.svg?t=1556806654817#iconfont) format('svg'); /* iOS 4.1- */
+  src: url(../font/iconfont.eot?t=1556902980299); /* IE9 */
+  src: url(../font/iconfont.eot?t=1556902980299#iefix) format('embedded-opentype'), /* IE6-IE8 */
+  url(../font/iconfont.woff?t=1556902980299) format('woff'),
+  url(../font/iconfont.ttf?t=1556902980299) format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url(../font/iconfont.svg?t=1556902980299#iconfont) format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -23,7 +23,7 @@
 .icon-follow:after {content: "\e703";}
 .icon-hengxian:after {content: "\e604";font-size: 32px!important;line-height: 30px;}
 .icon-hengxian:before {content: "\e604";line-height: 30px;}
-
+.icon-guanzhu:after {content: "\e63a";}
 
 *{ margin: 0; padding: 0; box-sizing: border-box;}
 li { list-style: none;}
@@ -56,6 +56,8 @@ html{height: 100%; min-width: 600px;}
 .list-swiper .funcBlock{padding: 0 15px 0 8px;width: 100%;}
 .list-swiper .funcBlock .like{float: left;color: red;width: 10px;}
 .list-swiper .funcBlock .delete{float: left;color: black;width: 10px;float: right}
+.icon-follow, .icon-delete{width: 25px!important;height: 25px;line-height: 25px;}
+.ant-card-body{padding: 0!important;}
 .pagination{width: 100%;height: 40px;padding-top: 15px;}
 .pagination .ant-pagination{float: right;}
 /* home */

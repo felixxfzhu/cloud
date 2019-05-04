@@ -57,13 +57,19 @@ class Content extends React.Component {
 class List extends React.Component {
     constructor(props){
         super(props);
+        this.attention=this.attention.bind(this);
+    }
+    attention(e){
+        e.preventDefault();
+        console.log("wwwww");
+
     }
     render() {
         return (
             <div className="list-swiper">
                 {
                     this.props.list.map((item,i)=>
-                        <div className="list-item" key={i}>
+                        <Link className="list-item" key={i} to={"/detial?key="+item.id}>
                             <Card hoverable cover={
                                 <div>
                                     <img src={item.img}/>
@@ -72,13 +78,13 @@ class List extends React.Component {
                                         {this.props.progress?(<Progress percent={item.Recommendation*100} size="small" />):""}
                                         <span className="price">{item.price}</span>
                                         <div className="funcBlock">
-                                            <i className={"like icon iconfont "+(this.props.attention?"icon-follow":"")}></i>
+                                            <i onClick={(e)=>this.attention(e)} className={"like icon iconfont "+(this.props.attention?"icon-follow":"")}></i>
                                             <i className={"delete icon iconfont "+(this.props.delete?"icon-delete":"")}></i>
                                         </div>
                                     </div>
                                 </div>
                             }/>
-                        </div>
+                        </Link>
                     )
                 }
             </div>
