@@ -13,12 +13,14 @@ import {Head} from "./../components/commom"
 class Detial extends React.Component {
     constructor (props) {
         super(props);
-        this.state={
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        this.state = {
             info:{
                 language: "Language",
                 menulist: ["Chinese", "English"],
-                profile:"WADE",
-                toLink:"/login/"
+                profile:userInfo?userInfo.userName:"Login",
+                toLink:userInfo?"/presonalInfo/":"/login/",
+                icon:"icon-denglu"
             },
             detial:{
                 productName: "Jade",

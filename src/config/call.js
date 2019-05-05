@@ -18,10 +18,10 @@ function info() {
         onOk() {},
     });
 }
-function error() {
+function error(errorMessage) {
     Modal.error({
-        title: 'This is an error message',
-        content: 'some messages...some messages...',
+        title: 'Warning',
+        content: errorMessage,
     });
 }
 const Call = {
@@ -31,9 +31,9 @@ const Call = {
             console.log(JSON.stringify(response))
             return response;
         })
-        .catch(function (error) {
-            console.log(error);
-            this.error(JSON.stringify(error));
+        .catch(function (errorMessage) {
+            console.log(this);
+            error(JSON.stringify(errorMessage));
         })
     },
     postData:function (path, parameter) {
@@ -42,9 +42,9 @@ const Call = {
                 console.log(JSON.stringify(response))
                 return response;
             })
-            .catch(function (error) {
-                console.log(error);
-                this.error(JSON.stringify(error));
+            .catch(function (errorMessage) {
+                console.log(this);
+                error(JSON.stringify(errorMessage));
             })
     }
 }
