@@ -8,12 +8,14 @@ import { Comment, Tooltip, Avatar} from 'antd';
 import moment from 'moment';
 import "antd/dist/antd.css";
 // import img1 from '../img/a.png';
-import {Head} from "./../components/commom"
+import {Head, List} from "./../components/commom";
+import Call from '../config/call';
 
 class Detial extends React.Component {
     constructor (props) {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        const productId = window.location.hash.split("=")[1];
         this.state = {
             info:{
                 language: "Language",
@@ -24,16 +26,19 @@ class Detial extends React.Component {
             },
             detial:{
                 productName: "Jade",
-                productId: "123456789",
+                productId: productId,
                 productUrl:"https://www.baidu.com/",
+                productImg: "./img/8.jpg",
                 productCategory: "Deposit insurance",
+                productIntroduction:" Jade (Enjoyment Edition) The Children's Insurance Products Program provides The Children's Insurance Products Program provides The Children's Insurance Products Program provides",
                 productPrice: "6666.00",
-                productIntroduction:" Jade (Enjoyment Edition) The Children's Insurance Products Program provides The Children's Insurance Products Program provides The Children's Insurance Products Program provides"
-                
+                like:"",
+                disLike:""
             },
             likes: 0,
             dislikes: 0,
             action: null,
+            recommendList: []
         },
         this.like = () => {
           this.setState({
@@ -52,7 +57,42 @@ class Detial extends React.Component {
         this.alert = () => {
          alert("test");
         }
+    }
+    componentWillMount() {
+        fetch("./json/list.json")
+            .then(res => res.json())
+            .then(json => {
+                this.renderItem(json)
+            })
 
+    }
+    
+    objectArraySort(keyName) {
+        return function (objectN, objectM) {
+            var valueN = objectN[keyName]
+            var valueM = objectM[keyName]
+            if (valueN < valueM) return 1
+            else if (valueN > valueM) return -1
+            else return 0
+        }
+    }
+    renderItem(data, key){
+        const renderList={};
+        Object.keys(data).map(key => {
+            data[key].list.sort(this.objectArraySort('Recommendation'));
+            renderList[key]={};
+            renderList[key]["name"]= data[key].name;
+            renderList[key]["list"]=[];
+            for (var i=0; i < Math.ceil(data[key].list.length/5); i++){
+                renderList[key].list.push(data[key].list.slice(i*5,(i+1)*5));
+            }
+            renderList[key]["length"] = data[key].list.length;
+            renderList[key]["pageIndex"] = 0;
+        })
+        this.setState({
+            // productList: renderList,
+            recommendList: data["property"].list
+        })
     }
     render() {
       //  const { getFieldDecorator } = this.props.form;
@@ -83,21 +123,21 @@ class Detial extends React.Component {
         </span>
       </span>,
       ];
-
+     const img1 = './img/7.jpg';
         return (
             <div className="page detial">
                 <Head info={this.state.info} ></Head>
                 <div className="content">
-                <p className="contentTop">Product Details and Preferences</p>
+                    <h1 className="contentTop">Product Details and Preferences</h1>
                     <div className = 'product_insure'>
                         <div className="product_insure_img fl">
-                            <img alt="example" src='/src/img/a.png' />
+                            <img alt="example" src={this.state.detial.productImg} />
                          </div>
                         <div className="product_insure_main fl">
                             <h3 className="insure_main_productName" onClick={this.alert}>{this.state.detial.productName}</h3>          
                             <p className='product_insure_main_category'>ProductCategory:  {this.state.detial.productCategory}</p>
                             <p className='product_insure_main_category'>ProductId:  {this.state.detial.productId}</p>
-                            <p className="insure_main_productIntroduction">Product Introduction:  {this.state.detial.productIntroduction}</p>
+                            <p className="insure_main_productIntroduction">Product Description:  {this.state.detial.productIntroduction}</p>
                             
                             <label  className="insure_main_price">
                                 <span className="product_insure_main_category">Price   </span>
@@ -117,6 +157,10 @@ class Detial extends React.Component {
                                     />
                             </label>
                         </div> 
+                    </div>
+                    <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                    <div>
+                        <List list={this.state.recommendList} attention={true} progress={true} delete={true}></List>
                     </div>
                 </div>
             </div>

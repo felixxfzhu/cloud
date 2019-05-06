@@ -91,7 +91,13 @@ html{height: 100%; min-width: 600px;}
   overflow: hidden;
 }
 .product_insure_img{
+  margin: 2px 0 0 2px;;
   width: 38%;
+  height: 350px;
+}
+.product_insure_img img{
+  width: 85%;
+  height: 100%;
 }
 .product_insure_main{
   width: 60%;
@@ -146,3 +152,5 @@ html{height: 100%; min-width: 600px;}
   display: inline-block;
   padding: 0;
 }
+.detial .recommendation{width: 100%;padding: 15px 25%;line-height: 30px;font-weight: normal;font-family: Arial;font-size: 28px;text-align: center;}
+
