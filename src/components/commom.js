@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Menu, Dropdown, Button, Icon, message} from "antd";
+import { Progress, Card, Icon} from "antd";
 import { Dropdownlist } from './dropdownlist';
 class Head extends React.Component{
     constructor(props){
@@ -42,14 +42,51 @@ class Head extends React.Component{
 }
 
 class Content extends React.Component {
-    constructor(...args) {
-        super(...args);
-        this.state = {};
+    constructor(props){
+        super(props);
+
     }
     render() {
         return (
             <div className="content">
                 {this.props.child}
+            </div>
+        )
+    }
+}
+class List extends React.Component {
+    constructor(props){
+        super(props);
+        this.attention=this.attention.bind(this);
+    }
+    attention(e){
+        e.preventDefault();
+        console.log("wwwww");
+
+    }
+    render() {
+        return (
+            <div className="list-swiper">
+                {
+                    this.props.list.map((item,i)=>
+                        <Link className="list-item" key={i} to={"/detial?key="+item.id}>
+                            <Card hoverable cover={
+                                <div>
+                                    <img src={item.img}/>
+                                    <div className="productDetial">
+                                        <div className="productName">{item.name}</div>
+                                        {this.props.progress?(<Progress percent={item.Recommendation*100} size="small" />):""}
+                                        <span className="price">{item.price}</span>
+                                        <div className="funcBlock">
+                                            <i onClick={(e)=>this.attention(e)} className={"like icon iconfont "+(this.props.attention?"icon-follow":"")}></i>
+                                            <i className={"delete icon iconfont "+(this.props.delete?"icon-delete":"")}></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            }/>
+                        </Link>
+                    )
+                }
             </div>
         )
     }
@@ -69,4 +106,4 @@ class Footer extends React.Component {
     }
 }
 
-export {Head, Content, Footer}
+export {Head, Content, List, Footer}
