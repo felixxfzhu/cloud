@@ -9,7 +9,8 @@ import moment from 'moment';
 import "antd/dist/antd.css";
 // import img1 from '../img/a.png';
 import {Head, List} from "./../components/commom";
-import Call from '../config/call';
+import Paths from "../config/path";
+import Ajax from "../config/call";
 
 class Detial extends React.Component {
     constructor (props) {
@@ -69,6 +70,11 @@ class Detial extends React.Component {
       }, 1000);
     }
     componentWillMount() {
+		const path = Paths.host + Paths.detail;
+		Ajax("post",path,"1").then((response) => {
+			console.log(JSON.stringify(response));
+			return response;
+		})
         fetch("./json/list.json")
             .then(res => res.json())
             .then(json => {

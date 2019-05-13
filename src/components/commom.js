@@ -92,18 +92,30 @@ class List extends React.Component {
     }
 }
 
-class Footer extends React.Component {
+class Loading extends React.Component {
     constructor(...args) {
         super(...args);
-        this.state = {};
+        this.state = {
+			display:"display:none;"
+		};
     }
+	show(){
+		this.setState({
+			display: "display:block"
+		})
+	}
+	hide(){
+		this.setState({
+			display: "display:none"
+		})
+	}
     render() {
         return (
-            <div className="Footer">
-                this is footer
+            <div style={this.state.display} className="loading">
+                <Spin size="large" />
             </div>
         )
     }
 }
 
-export {Head, Content, List, Footer}
+export {Head, Content, List, Loading}
