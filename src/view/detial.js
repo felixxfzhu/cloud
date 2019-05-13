@@ -38,7 +38,8 @@ class Detial extends React.Component {
             likes: 0,
             dislikes: 0,
             action: null,
-            recommendList: []
+            recommendList: [],
+            date: new Date()
         },
         this.like = () => {
           this.setState({
@@ -58,6 +59,15 @@ class Detial extends React.Component {
          alert("test");
         }
     }
+    componentDidMount(){
+      let timeSec = 0;
+      this.timeID = setInterval(() => {
+        this.setState({
+          date : timeSec++
+        })
+        console.log(timeSec + "b");
+      }, 1000);
+    }
     componentWillMount() {
         fetch("./json/list.json")
             .then(res => res.json())
@@ -65,6 +75,11 @@ class Detial extends React.Component {
                 this.renderItem(json)
             })
 
+    }
+    componentWillUnmount(){
+      console.log(this.state.date + "c");
+      clearInterval(this.timeID);
+      
     }
     
     objectArraySort(keyName) {
