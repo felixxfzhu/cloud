@@ -2,11 +2,11 @@
  * Created by dell on 2019/4/21.
  */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import MD from 'md5';
 import { Form, Icon, Input, Button, Checkbox } from "antd";
-import Call from "../config/call";
+import Ajax from "../config/call";
 import Paths from "../config/path";
-import {Head} from "./../components/commom"
+import {Head, Loading} from "./../components/commom"
 
 
 class LoginForm extends React.Component {
@@ -25,13 +25,20 @@ class LoginForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
-                localStorage.setItem("userInfo",JSON.stringify((values)));
-                const response = Call.getData(Paths.host+Paths.getdata, values);
-                console.log(response);
+				values.password=MD(values.password);
+                localStorage.setItem("userInfo", JSON.stringify((values)));
+                const parameter = {
+                    loginName: values.userName,
+                    loginPassWord: values.password
+                }
+				console.log(parameter)
+                const path = Paths.host + Paths.login;
+                Ajax("post",path, parameter).then((response) => {
+                    console.log(response);
+                    return response;
+                })
             }
         });
-
     }
     render() {
         const { getFieldDecorator } = this.props.form;

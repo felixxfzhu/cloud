@@ -24,29 +24,21 @@ function error(errorMessage) {
         content: errorMessage,
     });
 }
-const Call = {
-    getData:function (path, parameter) {
-        Axios.get(path, parameter)
-        .then(function (response) {
-            console.log(JSON.stringify(response))
-            return response;
-        })
-        .catch(function (errorMessage) {
-            console.log(this);
-            error(JSON.stringify(errorMessage));
-        })
-    },
-    postData:function (path, parameter) {
-        Axios.post(path, parameter)
-            .then(function (response) {
-                console.log(JSON.stringify(response))
-                return response;
-            })
-            .catch(function (errorMessage) {
-                console.log(this);
-                error(JSON.stringify(errorMessage));
-            })
-    }
+function Ajax(method, url, data) {
+    var request = new XMLHttpRequest();
+    return new Promise(function (resolve, reject) {
+        request.onreadystatechange = function () {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    resolve(request.responseText);
+                } else {
+                    error(JSON.stringify(request));
+                }
+            }
+        };
+        request.open(method, url);
+        request.send(data);
+    });
 }
 
-export default Call;
+export default Ajax;

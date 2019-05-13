@@ -4,8 +4,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Tabs, Input, Pagination } from "antd";
+import Paths from "../config/path";
+import Ajax from "../config/call";
 
-import { Head, List, Footer } from "./../components/commom";
+import { Head, List, } from "./../components/commom";
 
 
 class Home extends React.Component {
@@ -65,6 +67,12 @@ class Home extends React.Component {
         })
     }
     componentWillMount() {
+		const path = Paths.host + Paths.products;
+		Ajax("post",path,{}).then((response) => {
+			console.log(JSON.stringify(response));
+			return response;
+		})
+		console.log(path);
         fetch("./json/list.json")
             .then(res => res.json())
             .then(json => {
@@ -96,7 +104,7 @@ class Home extends React.Component {
                             )
                         }
                     </Tabs>
-                    <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;精品推荐&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                    <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
                     <div>
                         <List list={this.state.recommendList} attention={true} progress={true} delete={true}></List>
                     </div>
