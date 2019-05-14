@@ -12,7 +12,7 @@ import {Head, List} from "./../components/commom";
 import Call from '../config/call';
 import Ajax from "../config/call";
 import Paths from "../config/path";
-import AccountReq from "../config/account"
+import {post} from '../config/http';
 class Detial extends React.Component {
     constructor (props) {
         super(props);
@@ -30,12 +30,12 @@ class Detial extends React.Component {
                 like:"",
                 disLike:""
             },
-            productName: "Jade",
+            productName: "",
             productId: productId,
-            productImg: "./img/8.jpg",
-            productCategory: "Deposit insurance",
-            productIntroduction:" Jade (Enjoyment Edition) The Children's Insurance Products Program provides The Children's Insurance Products Program provides The Children's Insurance Products Program provides",
-            productPrice: "6666.00",
+            productImg: "",
+            productCategory: "",
+            productIntroduction:"",
+            productPrice: "",
             likes: 0,
             dislikes: 0,
             action: null,
@@ -55,14 +55,8 @@ class Detial extends React.Component {
             dislikes: 1,
             action: 'disliked',
           });
-        },
-        this.alert = async () => {
-          let aa= {
-            loginName:"user1",
-            loginPassWord:"e10adc3949ba59abbe56e057f20f883e"
-          }
-         await AccountReq.login()
         }
+       
     }
     componentDidMount(){
       let timeSec = 0;
@@ -75,13 +69,25 @@ class Detial extends React.Component {
     }
     componentWillMount() {
       const parameter = {
-       "productId": this.state.productId,
-       "customerId": '1'
-    }
-    console.log(parameter)
+        productId: this.state.productId,
+        customerId: 2
+      }
     const path = Paths.host + Paths.detail;
-    console.log(path);
-    // Ajax("post",path, JSON.stringify(parameter)).then((response) => {
+    const res  = post(path, parameter);
+    res.then(value =>{
+        const res = value.result;
+        this.setState({
+          productName: res.title,
+          productId: res.productId,
+          productImg: res.imagePath1,
+          productCategory: res.prodCategory.categoryName,
+          productIntroduction:res.description,
+          productPrice: res.prodAmount.amount,
+        });
+          
+    })
+   
+    // Ajax("post", path, JSON.stringify(parameter)).then((response) => {
     //     const res = JSON.parse(response).result;
     //     console.log(res);
     //     this.setState({
