@@ -9,9 +9,10 @@ import moment from 'moment';
 import "antd/dist/antd.css";
 // import img1 from '../img/a.png';
 import {Head, List} from "./../components/commom";
-import Paths from "../config/path";
+import Call from '../config/call';
 import Ajax from "../config/call";
-
+import Paths from "../config/path";
+import AccountReq from "../config/account"
 class Detial extends React.Component {
     constructor (props) {
         super(props);
@@ -26,16 +27,15 @@ class Detial extends React.Component {
                 icon:"icon-denglu"
             },
             detial:{
-                productName: "Jade",
-                productId: productId,
-                productUrl:"https://www.baidu.com/",
-                productImg: "./img/8.jpg",
-                productCategory: "Deposit insurance",
-                productIntroduction:" Jade (Enjoyment Edition) The Children's Insurance Products Program provides The Children's Insurance Products Program provides The Children's Insurance Products Program provides",
-                productPrice: "6666.00",
                 like:"",
                 disLike:""
             },
+            productName: "Jade",
+            productId: productId,
+            productImg: "./img/8.jpg",
+            productCategory: "Deposit insurance",
+            productIntroduction:" Jade (Enjoyment Edition) The Children's Insurance Products Program provides The Children's Insurance Products Program provides The Children's Insurance Products Program provides",
+            productPrice: "6666.00",
             likes: 0,
             dislikes: 0,
             action: null,
@@ -56,8 +56,12 @@ class Detial extends React.Component {
             action: 'disliked',
           });
         },
-        this.alert = () => {
-         alert("test");
+        this.alert = async () => {
+          let aa= {
+            loginName:"user1",
+            loginPassWord:"e10adc3949ba59abbe56e057f20f883e"
+          }
+         await AccountReq.login()
         }
     }
     componentDidMount(){
@@ -66,15 +70,30 @@ class Detial extends React.Component {
         this.setState({
           date : timeSec++
         })
-        console.log(timeSec + "b");
+        // console.log(timeSec + "b");
       }, 1000);
     }
     componentWillMount() {
-		const path = Paths.host + Paths.detail;
-		Ajax("post",path,"1").then((response) => {
-			console.log(JSON.stringify(response));
-			return response;
-		})
+      const parameter = {
+       "productId": this.state.productId,
+       "customerId": '1'
+    }
+    console.log(parameter)
+    const path = Paths.host + Paths.detail;
+    console.log(path);
+    // Ajax("post",path, JSON.stringify(parameter)).then((response) => {
+    //     const res = JSON.parse(response).result;
+    //     console.log(res);
+    //     this.setState({
+    //       productName: res.title,
+    //       productId: res.productId,
+    //       productImg: res.imagePath1,
+    //       productCategory: res.prodCategory.categoryName,
+    //       productIntroduction:res.description,
+    //       productPrice: res.prodAmount.amount,
+    //     });
+    //     return response;
+    // })
         fetch("./json/list.json")
             .then(res => res.json())
             .then(json => {
@@ -152,18 +171,18 @@ class Detial extends React.Component {
                     <h1 className="contentTop">Product Details and Preferences</h1>
                     <div className = 'product_insure'>
                         <div className="product_insure_img fl">
-                            <img alt="example" src={this.state.detial.productImg} />
+                            <img alt="example" src={this.state.productImg} />
                          </div>
                         <div className="product_insure_main fl">
-                            <h3 className="insure_main_productName" onClick={this.alert}>{this.state.detial.productName}</h3>          
-                            <p className='product_insure_main_category'>ProductCategory:  {this.state.detial.productCategory}</p>
-                            <p className='product_insure_main_category'>ProductId:  {this.state.detial.productId}</p>
-                            <p className="insure_main_productIntroduction">Product Description:  {this.state.detial.productIntroduction}</p>
+                            <h3 className="insure_main_productName">{this.state.productName}</h3>          
+                            <p className='product_insure_main_category'>ProductCategory:  {this.state.productCategory}</p>
+                            <p className='product_insure_main_category'>ProductId:  {this.state.productId}</p>
+                            <p className="insure_main_productIntroduction">Product Description:  {this.state.productIntroduction}</p>
                             
                             <label  className="insure_main_price">
                                 <span className="product_insure_main_category">Price   </span>
                                 <span className="insure_from_price">$ </span>
-                                <span className="insure_from_price">{this.state.detial.productPrice}</span>
+                                <span className="insure_from_price">{this.state.productPrice}</span>
                             </label>   
                             <label  className="mg_t8">
                                 <span className="product_insure_main_category">Effective Date:   </span>
