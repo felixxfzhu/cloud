@@ -25,7 +25,6 @@ function error(errorMessage) {
     });
 }
 const instance = Axios.create({
-    timeout: 10000,
     transformRequest:(requestData) => {
         return requestData;
     },

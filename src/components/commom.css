@@ -45,7 +45,7 @@ html{height: 100%; min-width: 600px;}
 
 /*list*/
 .search{height: 60px;width: 100%;padding: 5px 25%;}
-.list-swiper{width: 100%;height: 200px;overflow:hidden;}
+.list-swiper{width: 100%;height: 200px;overflow:hidden;max-height: 200px;}
 .list-swiper .list-item{width: 20%; height: 100%;float: left;padding-right: 10px;}
 .list-swiper .list-item img{width: 100%; height: 100px;}
 .list-swiper .list-item .ant-card{width: 100%;height: 100%;}
@@ -54,8 +54,9 @@ html{height: 100%; min-width: 600px;}
 .list-swiper div.ant-progress-outer{padding-right: 0;}
 .list-swiper .ant-progress-text{display: none;width: 0;}
 .list-swiper .price{width: 100%;text-align:right;color: red;}
-.list-swiper .funcBlock{padding: 0 15px 0 8px;width: 100%;}
-.list-swiper .funcBlock .like{float: left;color: red;width: 10px;}
+.list-swiper .funcBlock{width: 100%;}
+.list-swiper .funcBlock .ant-comment{float: left;color: red;width: 60%;height: 50px;}
+.list-swiper .funcBlock .ant-comment-inner{padding: 0;}
 .list-swiper .funcBlock .delete{float: left;color: black;width: 10px;float: right}
 .icon-follow, .icon-delete{width: 25px!important;height: 25px;line-height: 25px;}
 .ant-card-body{padding: 0!important;}
@@ -63,7 +64,7 @@ html{height: 100%; min-width: 600px;}
 .pagination .ant-pagination{float: right;}
 
 /* loading */
-.loading{position: fixed;top: 0;left: 0; right: 0; bottom: 0;white: 100%; heigth: 100%;text-align: center; background:rgba(0, 0, 0, 0.65);padding-top:30%;}
+.loading{position: fixed;top: 0;left: 0; right: 0; bottom: 0;white: 100%; heigth: 100%;text-align: center; background:rgba(0, 0, 0, 0.65);padding-top:280px;}
 .show {display: block;}
 .hide {display: none;}
 

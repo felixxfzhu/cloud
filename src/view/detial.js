@@ -12,12 +12,14 @@ import {Head, List} from "./../components/commom";
 import Call from '../config/call';
 import Ajax from "../config/call";
 import Paths from "../config/path";
+import {API} from "../config";
 import {post} from '../config/http';
 class Detial extends React.Component {
     constructor (props) {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         const productId = window.location.hash.split("=")[1];
+        this.deleteItem=this.deleteItem.bind(this);
         this.state = {
             info:{
                 language: "Language",
@@ -59,52 +61,64 @@ class Detial extends React.Component {
        
     }
     componentDidMount(){
-      let timeSec = 0;
-      this.timeID = setInterval(() => {
+        let timeSec = 0;
+        this.timeID = setInterval(() => {
         this.setState({
-          date : timeSec++
+            date : timeSec++
         })
         // console.log(timeSec + "b");
-      }, 1000);
+        }, 1000);
     }
     componentWillMount() {
-      const parameter = {
-        productId: this.state.productId,
-        customerId: 2
-      }
-    const path = Paths.host + Paths.detail;
-    const res  = post(path, parameter);
-    res.then(value =>{
-        const res = value.result;
-        this.setState({
-          productName: res.title,
-          productId: res.productId,
-          productImg: res.imagePath1,
-          productCategory: res.prodCategory.categoryName,
-          productIntroduction:res.description,
-          productPrice: res.prodAmount.amount,
-        });
-          
-    })
-   
-    // Ajax("post", path, JSON.stringify(parameter)).then((response) => {
-    //     const res = JSON.parse(response).result;
-    //     console.log(res);
-    //     this.setState({
-    //       productName: res.title,
-    //       productId: res.productId,
-    //       productImg: res.imagePath1,
-    //       productCategory: res.prodCategory.categoryName,
-    //       productIntroduction:res.description,
-    //       productPrice: res.prodAmount.amount,
-    //     });
-    //     return response;
-    // })
-        fetch("./json/list.json")
-            .then(res => res.json())
-            .then(json => {
-                this.renderItem(json)
-            })
+        const parameter = {
+            productId: this.state.productId,
+            customerId: 2
+        }
+        const path = Paths.host + Paths.detail;
+        const res  = post(path, parameter);
+        res.then(value =>{
+            const res = value.result;
+            this.setState({
+                productName: res.title,
+                productId: res.productId,
+                productImg: res.imagePath1,
+                productCategory: res.prodCategory.categoryName,
+                productIntroduction:res.description,
+                productPrice: res.prodAmount.amount,
+            });
+        })
+        var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:5}}).then((response) => {
+            if(response){
+                const {status, message, result} = response;
+                if(status == "1"){
+                    console.log(result.userBase)
+                    this.setState({
+                        recommendList: result.userBase
+                    })
+                }else{
+                    Message.error(message)
+                }
+            }
+        })
+        /*Ajax("post", path, JSON.stringify(parameter)).then((response) => {
+            const res = JSON.parse(response).result;
+            console.log(res);
+            this.setState({
+                productName: res.title,
+                productId: res.productId,
+                productImg: res.imagePath1,
+                productCategory: res.prodCategory.categoryName,
+                productIntroduction:res.description,
+                productPrice: res.prodAmount.amount,
+            });
+            return response;
+        })*/
+        /*fetch("./json/list.json")
+        .then(res => res.json())
+        .then(json => {
+            this.renderItem(json)
+        })*/
 
     }
     componentWillUnmount(){
@@ -138,6 +152,12 @@ class Detial extends React.Component {
         this.setState({
             // productList: renderList,
             recommendList: data["property"].list
+        })
+    }
+    deleteItem(i){
+        this.state.recommendList.splice(i,1)
+        this.setState({
+            recommendList: this.state.recommendList
         })
     }
     render() {
@@ -206,7 +226,7 @@ class Detial extends React.Component {
                     </div>
                     <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
                     <div>
-                        <List list={this.state.recommendList} attention={true} progress={true} delete={true}></List>
+                        <List list={this.state.recommendList} attention={true} progress={true} delete={true} deleteItem={this.deleteItem}></List>
                     </div>
                 </div>
             </div>

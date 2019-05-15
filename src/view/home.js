@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom';
 import {Tabs, Input, Pagination, Modal, message as Message } from "antd";
 import {Paths, API} from "../config";
 
-import { Head, List, } from "./../components/commom";
+import { Head, List, Loading} from "./../components/commom";
 
 class Home extends React.Component {
     constructor (props) {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        this.deleteItem=this.deleteItem.bind(this);
         this.changePagination = this.changePagination.bind(this);
         this.state = {
             info:{
@@ -22,6 +23,7 @@ class Home extends React.Component {
                 icon:"icon-denglu"
             },
             productList: {},
+            isShowAndHide:"hide",
             recommendList: []
         };
 
@@ -65,7 +67,17 @@ class Home extends React.Component {
         })
     }
     componentWillMount() {
+        let cussessNum = 0;
+        this.setState({
+            isShowAndHide: "show"
+        })
         API.products({pageNum:1,pageLimit:5}).then((response) => {
+            cussessNum++;
+            if(cussessNum=="2"){
+                this.setState({
+                    isShowAndHide: "hide"
+                })
+            }
             if(response){
                 const {status, message, result} = response;
                 if(status == "1"){
@@ -76,11 +88,16 @@ class Home extends React.Component {
             }
         })
         var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:5}}).then((response) => {
+        API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:10}}).then((response) => {
+            cussessNum++;
+            if(cussessNum=="2"){
+                this.setState({
+                    isShowAndHide: "hide"
+                })
+            }
             if(response){
                 const {status, message, result} = response;
                 if(status == "1"){
-                    console.log(result.userBase)
                     this.setState({
                         recommendList: result.userBase
                     })
@@ -98,7 +115,12 @@ class Home extends React.Component {
     componentDidMount() {
         //console.log(this.state)
     }
-
+    deleteItem(i){
+        this.state.recommendList.splice(i,1)
+        this.setState({
+            recommendList: this.state.recommendList
+        })
+    }
     render(){
         return (
             <div id="home" className="page home">
@@ -121,9 +143,10 @@ class Home extends React.Component {
                     </Tabs>
                     <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
                     <div className="recommendationList">
-                        <List list={this.state.recommendList} attention={true} progress={true} delete={true}></List>
+                        <List list={this.state.recommendList} progress={true} delete={true} deleteItem={this.deleteItem}></List>
                     </div>
                 </div>
+                 <Loading isShowAndHide={this.state.isShowAndHide}/>
             </div>
         )
     }
