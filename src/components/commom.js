@@ -69,14 +69,14 @@ class List extends React.Component {
             <div className="list-swiper">
                 {
                     this.props.list.map((item,i)=>
-                        <Link className="list-item" key={i} to={"/detial?key="+item.id}>
+                        <Link className="list-item" key={i} to={"/detial?key="+item.product.productId}>
                             <Card hoverable cover={
                                 <div>
-                                    <img src={item.img}/>
+                                    <img src={item.product.imagePath1}/>
                                     <div className="productDetial">
-                                        <div className="productName">{item.name}</div>
-                                        {this.props.progress?(<Progress percent={item.Recommendation*100} size="small" />):""}
-                                        <span className="price">{item.price}</span>
+                                        <div className="productName">{item.product.prodCategory.categoryName}</div>
+                                        {this.props.progress?(<Progress percent={item.rating*10} size="small" />):""}
+                                        <span className="price">{item.product.prodAmount.amount}</span>
                                         <div className="funcBlock">
                                             <i onClick={(e)=>this.attention(e)} className={"like icon iconfont "+(this.props.attention?"icon-follow":"")}></i>
                                             <i className={"delete icon iconfont "+(this.props.delete?"icon-delete":"")}></i>
