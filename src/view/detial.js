@@ -72,21 +72,20 @@ class Detial extends React.Component {
         productId: this.state.productId,
         customerId: 2
       }
-    const path = Paths.host + Paths.detail;
-    const res  = post(path, parameter);
-    res.then(value =>{
-        const res = value.result;
-        this.setState({
-          productName: res.title,
-          productId: res.productId,
-          productImg: res.imagePath1,
-          productCategory: res.prodCategory.categoryName,
-          productIntroduction:res.description,
-          productPrice: res.prodAmount.amount,
-        });
-          
-    })
-   
+      const path = Paths.host + Paths.detail;
+      const res  = post(path, parameter);
+      res.then(value =>{
+          const res = value.result;
+          this.setState({
+            productName: res.title,
+            productId: res.productId,
+            productImg: res.imagePath1,
+            productCategory: res.prodCategory.categoryName,
+            productIntroduction:res.description,
+            productPrice: res.prodAmount.amount,
+          });
+      })
+     
     // Ajax("post", path, JSON.stringify(parameter)).then((response) => {
     //     const res = JSON.parse(response).result;
     //     console.log(res);
@@ -100,6 +99,8 @@ class Detial extends React.Component {
     //     });
     //     return response;
     // })
+    
+    
         fetch("./json/list.json")
             .then(res => res.json())
             .then(json => {
@@ -109,6 +110,31 @@ class Detial extends React.Component {
     }
     componentWillUnmount(){
       console.log(this.state.date + "c");
+      const path2 = Paths.host + Paths.storeBehavior;
+      const parameter2 = {
+        "favouriteId":"111",
+        "customerId":"11",
+        "Product":{
+          "productId":"10",
+          "title":"1111",
+          "description":"111111",
+          "imagePath1":"11111",
+          "imagePath2":"1111",
+          "createTime":"11111111",
+          "prodCategory":{
+            "categoryId":"111",
+            "categoryName":"111"
+          },
+          "prodAmount":{
+            "amount":"111",
+            "currencyCode":"USD"
+          }
+        },
+        "createTime":"11111111"
+      }
+      console.log(parameter2);
+      const res2  = post(path2, parameter2);
+      console.log(res2);
       clearInterval(this.timeID);
       
     }
