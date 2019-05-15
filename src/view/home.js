@@ -3,12 +3,10 @@
  */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {Tabs, Input, Pagination } from "antd";
-import Paths from "../config/path";
-import Ajax from "../config/call";
+import {Tabs, Input, Pagination, Modal, message as Message } from "antd";
+import {Paths, API} from "../config";
 
 import { Head, List, } from "./../components/commom";
-
 
 class Home extends React.Component {
     constructor (props) {
@@ -67,18 +65,32 @@ class Home extends React.Component {
         })
     }
     componentWillMount() {
-		const path = Paths.host + Paths.products;
-		Ajax("post",path,{}).then((response) => {
-			console.log(JSON.stringify(response));
-			return response;
-		})
-		console.log(path);
+        API.products({pageNum:1,pageLimit:5}).then((response) => {
+            if(response){
+                const {status, message, result} = response;
+                if(status == "1"){
+                    console.log(response)
+                }else{
+                    Message.error(message)
+                }
+            }
+        })
+        var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:5}}).then((response) => {
+            if(response){
+                const {status, message, result} = response;
+                if(status == "1"){
+                    console.log(response)
+                }else{
+                    Message.error(message)
+                }
+            }
+        })
         fetch("./json/list.json")
             .then(res => res.json())
             .then(json => {
                 this.renderItem(json)
             })
-
     }
     componentDidMount() {
         //console.log(this.state)
@@ -105,7 +117,7 @@ class Home extends React.Component {
                         }
                     </Tabs>
                     <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-                    <div>
+                    <div className="recommendationList">
                         <List list={this.state.recommendList} attention={true} progress={true} delete={true}></List>
                     </div>
                 </div>

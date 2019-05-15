@@ -32,7 +32,8 @@ body a{text-decoration: none;}
 body, html{height: 100%; min-width: 600px;}
 html{height: 100%; min-width: 600px;}
 
-.page, .header, .content {width: 100%; }
+.page{position: relative; top: 0;left: 0; right: 0; bottom: 0;} 
+.header, .content {width: 100%;}
 .icon-HSBC{color: red;}
 
 .header {height: 70px;padding:10px 8%;border-bottom: 1px solid #DDD;}
@@ -44,8 +45,8 @@ html{height: 100%; min-width: 600px;}
 
 /*list*/
 .search{height: 60px;width: 100%;padding: 5px 25%;}
-.list-swiper{width: 100%;height: 200px;}
-.list-swiper .list-item{width: 20%; height: 100%;float: left;padding-right: 10px;position: relative;}
+.list-swiper{width: 100%;height: 200px;overflow:hidden;}
+.list-swiper .list-item{width: 20%; height: 100%;float: left;padding-right: 10px;}
 .list-swiper .list-item img{width: 100%; height: 100px;}
 .list-swiper .list-item .ant-card{width: 100%;height: 100%;}
 .list-swiper .list-item .productDetial{width: 100%;padding: 0 5px;}
@@ -60,10 +61,17 @@ html{height: 100%; min-width: 600px;}
 .ant-card-body{padding: 0!important;}
 .pagination{width: 100%;height: 40px;padding-top: 15px;}
 .pagination .ant-pagination{float: right;}
-/* home */
-.home .content{padding: 10px 4%;heigth:300px;}
-.home .recommendation{width: 100%;padding: 15px 25%;line-height: 30px;font-weight: normal;font-family: Arial;font-size: 28px;text-align: center;}
 
+/* loading */
+.loading{position: fixed;top: 0;left: 0; right: 0; bottom: 0;white: 100%; heigth: 100%;text-align: center; background:rgba(0, 0, 0, 0.65);padding-top:30%;}
+.show {display: block;}
+.hide {display: none;}
+
+/* home */
+.home .content{padding: 10px 8%;heigth:300px;}
+.home .recommendation{width: 100%;padding: 15px 25%;line-height: 30px;font-weight: normal;font-family: Arial;font-size: 28px;text-align: center;}
+.home .content .recommendationList .list-swiper .list-item img{height: 130px;}
+.home .content .recommendationList .list-swiper{height: 250px;}
 /* login */
 .login .content{padding: 7.5% 25%;text-align: center;heigth:60%!important}
 .login .content .login-form-button{display: block;}

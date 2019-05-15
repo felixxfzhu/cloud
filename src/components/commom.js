@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Progress, Card, Icon} from "antd";
+import { Progress, Card, Icon, Spin, } from "antd";
 import { Dropdownlist } from './dropdownlist';
 class Head extends React.Component{
     constructor(props){
@@ -95,23 +95,10 @@ class List extends React.Component {
 class Loading extends React.Component {
     constructor(...args) {
         super(...args);
-        this.state = {
-			display:"display:none;"
-		};
     }
-	show(){
-		this.setState({
-			display: "display:block"
-		})
-	}
-	hide(){
-		this.setState({
-			display: "display:none"
-		})
-	}
     render() {
         return (
-            <div style={this.state.display} className="loading">
+            <div className={"loading "+this.props.isShowAndHide}>
                 <Spin size="large" />
             </div>
         )

@@ -1,22 +1,24 @@
 /**
  * Created by dell on 2019/4/21.
  */
-const Paths = {
-    host:"http://ec2-13-125-68-233.ap-northeast-2.compute.amazonaws.com:8888/api/v1",
-    login:"/login",
-    products:"/loadProducts",
-    detail:"/loadProductDetail",
-    presonalInfo:"PresonalInfo/index"
-}
+let HOST;
+
 if(process.env.NODE_ENV == "production"){
-    Paths["host"] = "https://www.production.cn"
+    HOST = "http://ec2-13-125-68-233.ap-northeast-2.compute.amazonaws.com:8888/api/v1/"
     console.log("production");
 }else if(process.env.NODE_ENV == "development"){
-    Paths["host"] = "http://ec2-13-125-68-233.ap-northeast-2.compute.amazonaws.com:8888/api/v1"
+    HOST = "http://ec2-13-125-68-233.ap-northeast-2.compute.amazonaws.com:8888/api/v1/"
     console.log("development");
-}else {
+}else if(process.env.NODE_ENV == "testing"){
     console.log("testing")
-    Paths["host"] = "https://www.testing.cn"
+    HOST = "http://ec2-13-125-68-233.ap-northeast-2.compute.amazonaws.com:8888/api/v1/"
+}
+const Paths = {
+    login: HOST+"login",
+    products: HOST+"loadProducts",
+    detail: HOST+"loadProductDetail",
+    recommendation:HOST+"loadRecProds",
+    search: HOST+"search"
 }
 
 export default Paths;
