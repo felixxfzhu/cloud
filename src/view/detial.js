@@ -12,6 +12,7 @@ import {Head, List} from "./../components/commom";
 import Call from '../config/call';
 import Ajax from "../config/call";
 import Paths from "../config/path";
+import {API} from "../config";
 import {post} from '../config/http';
 class Detial extends React.Component {
     constructor (props) {
@@ -85,7 +86,20 @@ class Detial extends React.Component {
             productPrice: res.prodAmount.amount,
           });
       })
-     
+      var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:5}}).then((response) => {
+          if(response){
+              const {status, message, result} = response;
+              if(status == "1"){
+                  console.log(result.userBase)
+                  this.setState({
+                      recommendList: result.userBase
+                  })
+              }else{
+                  Message.error(message)
+              }
+          }
+      })
     // Ajax("post", path, JSON.stringify(parameter)).then((response) => {
     //     const res = JSON.parse(response).result;
     //     console.log(res);
@@ -101,11 +115,11 @@ class Detial extends React.Component {
     // })
     
     
-        fetch("./json/list.json")
+        /*fetch("./json/list.json")
             .then(res => res.json())
             .then(json => {
                 this.renderItem(json)
-            })
+            })*/
 
     }
     componentWillUnmount(){
