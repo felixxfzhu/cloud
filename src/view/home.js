@@ -80,17 +80,20 @@ class Home extends React.Component {
             if(response){
                 const {status, message, result} = response;
                 if(status == "1"){
-                    console.log(response)
+                    console.log(result.userBase)
+                    this.setState({
+                        recommendList: result.userBase
+                    })
                 }else{
                     Message.error(message)
                 }
             }
         })
-        fetch("./json/list.json")
+        /*fetch("./json/list.json")
             .then(res => res.json())
             .then(json => {
                 this.renderItem(json)
-            })
+            })*/
     }
     componentDidMount() {
         //console.log(this.state)
