@@ -9,9 +9,10 @@ import moment from 'moment';
 import "antd/dist/antd.css";
 // import img1 from '../img/a.png';
 import {Head, List} from "./../components/commom";
-import Paths from "../config/path";
+import Call from '../config/call';
 import Ajax from "../config/call";
-
+import Paths from "../config/path";
+import {post} from '../config/http';
 class Detial extends React.Component {
     constructor (props) {
         super(props);
@@ -26,20 +27,20 @@ class Detial extends React.Component {
                 icon:"icon-denglu"
             },
             detial:{
-                productName: "Jade",
-                productId: productId,
-                productUrl:"https://www.baidu.com/",
-                productImg: "./img/8.jpg",
-                productCategory: "Deposit insurance",
-                productIntroduction:" Jade (Enjoyment Edition) The Children's Insurance Products Program provides The Children's Insurance Products Program provides The Children's Insurance Products Program provides",
-                productPrice: "6666.00",
                 like:"",
                 disLike:""
             },
+            productName: "",
+            productId: productId,
+            productImg: "",
+            productCategory: "",
+            productIntroduction:"",
+            productPrice: "",
             likes: 0,
             dislikes: 0,
             action: null,
-            recommendList: []
+            recommendList: [],
+            date: new Date()
         },
         this.like = () => {
           this.setState({
@@ -54,23 +55,62 @@ class Detial extends React.Component {
             dislikes: 1,
             action: 'disliked',
           });
-        },
-        this.alert = () => {
-         alert("test");
         }
+       
+    }
+    componentDidMount(){
+      let timeSec = 0;
+      this.timeID = setInterval(() => {
+        this.setState({
+          date : timeSec++
+        })
+        // console.log(timeSec + "b");
+      }, 1000);
     }
     componentWillMount() {
-		const path = Paths.host + Paths.detail;
-		Ajax("post",path,"1").then((response) => {
-			console.log(JSON.stringify(response));
-			return response;
-		})
+      const parameter = {
+        productId: this.state.productId,
+        customerId: 2
+      }
+    const path = Paths.host + Paths.detail;
+    const res  = post(path, parameter);
+    res.then(value =>{
+        const res = value.result;
+        this.setState({
+          productName: res.title,
+          productId: res.productId,
+          productImg: res.imagePath1,
+          productCategory: res.prodCategory.categoryName,
+          productIntroduction:res.description,
+          productPrice: res.prodAmount.amount,
+        });
+          
+    })
+   
+    // Ajax("post", path, JSON.stringify(parameter)).then((response) => {
+    //     const res = JSON.parse(response).result;
+    //     console.log(res);
+    //     this.setState({
+    //       productName: res.title,
+    //       productId: res.productId,
+    //       productImg: res.imagePath1,
+    //       productCategory: res.prodCategory.categoryName,
+    //       productIntroduction:res.description,
+    //       productPrice: res.prodAmount.amount,
+    //     });
+    //     return response;
+    // })
         fetch("./json/list.json")
             .then(res => res.json())
             .then(json => {
                 this.renderItem(json)
             })
 
+    }
+    componentWillUnmount(){
+      console.log(this.state.date + "c");
+      clearInterval(this.timeID);
+      
     }
     
     objectArraySort(keyName) {
@@ -137,18 +177,18 @@ class Detial extends React.Component {
                     <h1 className="contentTop">Product Details and Preferences</h1>
                     <div className = 'product_insure'>
                         <div className="product_insure_img fl">
-                            <img alt="example" src={this.state.detial.productImg} />
+                            <img alt="example" src={this.state.productImg} />
                          </div>
                         <div className="product_insure_main fl">
-                            <h3 className="insure_main_productName" onClick={this.alert}>{this.state.detial.productName}</h3>          
-                            <p className='product_insure_main_category'>ProductCategory:  {this.state.detial.productCategory}</p>
-                            <p className='product_insure_main_category'>ProductId:  {this.state.detial.productId}</p>
-                            <p className="insure_main_productIntroduction">Product Description:  {this.state.detial.productIntroduction}</p>
+                            <h3 className="insure_main_productName">{this.state.productName}</h3>          
+                            <p className='product_insure_main_category'>ProductCategory:  {this.state.productCategory}</p>
+                            <p className='product_insure_main_category'>ProductId:  {this.state.productId}</p>
+                            <p className="insure_main_productIntroduction">Product Description:  {this.state.productIntroduction}</p>
                             
                             <label  className="insure_main_price">
                                 <span className="product_insure_main_category">Price   </span>
                                 <span className="insure_from_price">$ </span>
-                                <span className="insure_from_price">{this.state.detial.productPrice}</span>
+                                <span className="insure_from_price">{this.state.productPrice}</span>
                             </label>   
                             <label  className="mg_t8">
                                 <span className="product_insure_main_category">Effective Date:   </span>
