@@ -72,7 +72,7 @@ class Detial extends React.Component {
         productId: this.state.productId,
         customerId: 2
       }
-      const path = Paths.host + Paths.detail;
+      const path = Paths.detail;
       const res  = post(path, parameter);
       res.then(value =>{
           const res = value.result;
@@ -110,7 +110,7 @@ class Detial extends React.Component {
     }
     componentWillUnmount(){
       console.log(this.state.date + "c");
-      const path2 = Paths.host + Paths.storeBehavior;
+      const path2 = Paths.storeBehavior;
       const parameter2 = {
         "favouriteId":"111",
         "customerId":"11",
