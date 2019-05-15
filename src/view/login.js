@@ -3,11 +3,10 @@
  */
 import React from 'react';
 import MD from 'md5';
-import { Form, Icon, Input, Button, Checkbox } from "antd";
-import Ajax from "../config/call";
-import Paths from "../config/path";
+import { Link, Redirect } from 'react-router-dom';
+import { Form, Icon, Input, Button, Checkbox, Modal, message as Message } from "antd";
+import {Paths, API} from "../config";
 import {Head, Loading} from "./../components/commom"
-
 
 class LoginForm extends React.Component {
     constructor (props) {
@@ -18,24 +17,36 @@ class LoginForm extends React.Component {
                 language: "Language",
                 menulist: ["Chinese", "English"],
                 toLink:"/login/"
-            }
+            },
+            isShowAndHide:"hide"
         }
     }
     handleSubmit(e){
+        console.log(this.props.history)
         e.preventDefault();
+        this.setState({
+            isShowAndHide: "show"
+        })
         this.props.form.validateFields((err, values) => {
             if (!err) {
-				values.password=MD(values.password);
-                localStorage.setItem("userInfo", JSON.stringify((values)));
                 const parameter = {
                     loginName: values.userName,
-                    loginPassWord: values.password
+                    loginPassWord: MD(values.password)
                 }
-				console.log(parameter)
-                const path = Paths.host + Paths.login;
-                Ajax("post",path, parameter).then((response) => {
-                    console.log(response);
-                    return response;
+                API.login(parameter).then((response) => {
+                    if(response){
+                        const {status, message, result} = response;
+                        if(status == "1"){
+                            this.setState({
+                                isShowAndHide: "hide"
+                            })
+                            console.log(result);
+                            localStorage.setItem("userInfo", JSON.stringify(result));
+                            this.props.history.push( '/');
+                        }else{
+                            Message.error(message)
+                        }
+                    }
                 })
             }
         });
@@ -76,6 +87,7 @@ class LoginForm extends React.Component {
                         </Form.Item>
                     </Form>
                 </div>
+                <Loading isShowAndHide={this.state.isShowAndHide}/>
             </div>
         );
     }
@@ -83,4 +95,4 @@ class LoginForm extends React.Component {
 const Login = Form.create({ name: 'normal_login' })(LoginForm);
 
 export default Login;
-
+ 

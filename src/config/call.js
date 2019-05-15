@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { Modal } from "antd";
+import { Modal, message as Message } from "antd";
 import Axios from "axios"
 
 function info() {
@@ -24,21 +24,47 @@ function error(errorMessage) {
         content: errorMessage,
     });
 }
-function Ajax(method, url, data) {
-    var request = new XMLHttpRequest();
-    return new Promise(function (resolve, reject) {
-        request.onreadystatechange = function () {
-            if (request.readyState === 4) {
-                if (request.status === 200) {
-                    resolve(request.responseText);
-                } else {
-                    error(JSON.stringify(request));
-                }
+const instance = Axios.create({
+    timeout: 10000,
+    transformRequest:(requestData) => {
+        return requestData;
+    },
+    transformResponse:(responseData) => {
+        try{
+            const {resultCode, errorInfo} = JSON.parse(responseData);
+            if(resultCode === "0") {
+                Message.error(errorInfo.errorMsg,8);
+            }else{
+                Message.success("loading Successful",1)
             }
-        };
-        request.open(method, url);
-        request.send(data);
-    });
+        }catch(e){
+            console.log(e)
+        }
+        return responseData;
+    }
+})
+instance.interceptors.response.use(function(response){
+    const {status, data, statusText,headers} = response;
+    if(status === 200){
+        return JSON.parse(data);
+    }else{
+        Message.error(status);
+        return response;
+    }
+},function(error){
+    Message.error(error);
+    console.log(error);
+})
+const headers = {
+    'Content-Type':'application/json'
 }
-
-export default Ajax;
+export default {
+    get:(url, params) => {
+        return instance.get(url,{params: params, headers: headers});
+    },
+    post: (url,params) => {
+        console.log(url);
+        console.log(params);
+        return instance.post(url,JSON.stringify(params),{headers: headers});
+    }
+}
