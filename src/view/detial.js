@@ -18,8 +18,10 @@ class Detial extends React.Component {
     constructor (props) {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        console.log(userInfo);
         const productId = window.location.hash.split("=")[1];
-        this.deleteItem=this.deleteItem.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
+        this.buyProduct = this.buyProduct.bind(this);
         this.state = {
             info:{
                 language: "Language",
@@ -32,6 +34,7 @@ class Detial extends React.Component {
                 like:"",
                 disLike:""
             },
+            userInfo: userInfo,
             productName: "",
             productId: productId,
             productImg: "",
@@ -70,59 +73,65 @@ class Detial extends React.Component {
         }, 1000);
     }
     componentWillMount() {
-        const parameter = {
-            productId: this.state.productId,
-            customerId: 2
-        }
-        const path = Paths.host + Paths.detail;
-        const res  = post(path, parameter);
-        res.then(value =>{
-            const res = value.result;
-            this.setState({
-                productName: res.title,
-                productId: res.productId,
-                productImg: res.imagePath1,
-                productCategory: res.prodCategory.categoryName,
-                productIntroduction:res.description,
-                productPrice: res.prodAmount.amount,
-            });
-        })
-        var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:5}}).then((response) => {
-            if(response){
-                const {status, message, result} = response;
-                if(status == "1"){
-                    console.log(result.userBase)
-                    this.setState({
-                        recommendList: result.userBase
-                    })
-                }else{
-                    Message.error(message)
-                }
-            }
-        })
-        /*Ajax("post", path, JSON.stringify(parameter)).then((response) => {
-            const res = JSON.parse(response).result;
-            console.log(res);
-            this.setState({
-                productName: res.title,
-                productId: res.productId,
-                productImg: res.imagePath1,
-                productCategory: res.prodCategory.categoryName,
-                productIntroduction:res.description,
-                productPrice: res.prodAmount.amount,
-            });
-            return response;
-        })*/
-        /*fetch("./json/list.json")
-        .then(res => res.json())
-        .then(json => {
-            this.renderItem(json)
-        })*/
-
+      const parameter = {
+        productId: this.state.productId,
+        // customerId: this.state.userInfo.customerId
+        customerId:4
+      }
+      console.log(parameter);
+      const path = Paths.detail;
+      console.log(path);
+      const res  = post(path, parameter);
+      res.then(value =>{
+          const res = value.result;
+          this.setState({
+            productName: res.title,
+            productId: res.productId,
+            productImg: res.imagePath1,
+            productCategory: res.prodCategory.categoryName,
+            productIntroduction:res.description,
+            productPrice: res.prodAmount.amount,
+          });
+      })
+      var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:5}}).then((response) => {
+          if(response){
+              const {status, message, result} = response;
+              if(status == "1"){
+                  console.log(result.userBase)
+                  this.setState({
+                      recommendList: result.userBase
+                  })
+              }else{
+                  Message.error(message)
+              }
+          }
+      })
     }
     componentWillUnmount(){
-      console.log(this.state.date + "c");
+      const path2 = Paths.storeBehavior;
+      const parameter2 = {
+        "favouriteId":this.state.likes,
+        "customerId":this.state.userInfo.customerId,
+        "createTime":this.state.date,
+        "Product":{
+          "productId":this.state.productId,
+          "title":this.state.productName,
+          "description":this.state.productIntroduction,
+          "imagePath1":this.state.productImg,
+          "prodCategory":{
+            "categoryId":"",
+            "categoryName":this.state.productCategory
+          },
+          "prodAmount":{
+            "amount":this.state.productPrice,
+            "currencyCode":"USD"
+          }
+        }
+      }
+      console.log(parameter2);
+      const res2  = post(path2, parameter2);
+      console.log(res2);
       clearInterval(this.timeID);
       
     }
@@ -159,6 +168,36 @@ class Detial extends React.Component {
         this.setState({
             recommendList: this.state.recommendList
         })
+    }
+    buyProduct(){
+      const path2 = Paths.storeBehavior;
+      const parameter2 = {
+        "favouriteId":this.state.likes,
+        "customerId":this.state.userInfo.customerId,
+        "createTime":this.state.date,
+        "Product":{
+          "productId":this.state.productId,
+          "title":this.state.productName,
+          "description":this.state.productIntroduction,
+          "imagePath1":this.state.productImg,
+          "prodCategory":{
+            "categoryId":"",
+            "categoryName":this.state.productCategory
+          },
+          "prodAmount":{
+            "amount":this.state.productPrice,
+            "currencyCode":"USD"
+          }
+        }
+      }
+      console.log(parameter2);
+      const BuyP  = post(path2, parameter2);
+      BuyP.then(value =>{
+        const res = value.status;
+        if(value.status == '1'){
+        console.log('buy success');
+        }
+      })
     }
     render() {
       //  const { getFieldDecorator } = this.props.form;
@@ -216,7 +255,7 @@ class Detial extends React.Component {
                             </label>
                             <label>
                                 <a href={this.state.detial.productUrl}>
-                                   <p className = 'product_insure_main_buy'>BUY NOW</p>
+                                   <p className = 'product_insure_main_buy' onClick={this.buyProduct}>BUY NOW</p>
                                    </a>
                                    <Comment
                                     actions={actions}

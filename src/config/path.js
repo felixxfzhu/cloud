@@ -19,7 +19,8 @@ const Paths = {
     products: HOST+"loadProducts",
     detail: HOST+"loadProductDetail",
     recommendation:HOST+"loadRecProds",
-    search: HOST+"search"
+    search: HOST+"search",
+    storeBehavior: HOST + "storeBehavior"
 }
 
 export default Paths;
