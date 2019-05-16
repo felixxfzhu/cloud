@@ -12,6 +12,9 @@ class Home extends React.Component {
     constructor (props) {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        if(!userInfo){
+            this.props.history.push( '/regiser');
+        }
         this.deleteItem=this.deleteItem.bind(this);
         this.changePagination = this.changePagination.bind(this);
         this.state = {

@@ -15,6 +15,7 @@ if(process.env.NODE_ENV == "production"){
 }
 const Paths = {
     login: HOST+"login",
+    regiser: HOST+"regiser",
     products: HOST+"loadProducts",
     detail: HOST+"loadProductDetail",
     recommendation:HOST+"loadRecProds",

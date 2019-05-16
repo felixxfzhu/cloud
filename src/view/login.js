@@ -24,11 +24,11 @@ class LoginForm extends React.Component {
     handleSubmit(e){
         console.log(this.props.history)
         e.preventDefault();
-        this.setState({
-            isShowAndHide: "show"
-        })
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                this.setState({
+                    isShowAndHide: "show"
+                })
                 const parameter = {
                     loginName: values.userName,
                     loginPassWord: MD(values.password)
@@ -83,7 +83,7 @@ class LoginForm extends React.Component {
                             <Button type="primary" htmlType="submit" className="login-form-button">
                                 Log in
                             </Button>
-                            <a className="register-form-button" href="">Or register now!</a>
+                            <Link to="/regiser" className="register-form-button">Or register now!</Link>
                         </Form.Item>
                     </Form>
                 </div>

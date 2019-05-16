@@ -5,6 +5,7 @@ import "./components/commom.css"
 import "antd/dist/antd.css";
 
 import Home from "./view/home";
+import Regiser from "./view/regiser";
 import Login from "./view/login";
 import Detial from "./view/detial";
 import Cart from "./view/cart";
@@ -18,6 +19,7 @@ export default class Root extends React.Component{
                 <div>
                     <Switch>
                         <Route exact path="/" component={Home} />
+                        <Route path="/regiser" component={Regiser} />
                         <Route path="/login" component={Login} />
                         <Route path="/cart" component={Cart} />
                         <Route path="/detial" component={Detial} />
