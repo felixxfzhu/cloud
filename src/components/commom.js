@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Progress, Card, Icon, Spin, } from "antd";
+import { Progress, Card, Icon, Spin, Comment,Tooltip,} from "antd";
 import { Dropdownlist } from './dropdownlist';
 class Head extends React.Component{
     constructor(props){
@@ -57,14 +57,33 @@ class Content extends React.Component {
 class List extends React.Component {
     constructor(props){
         super(props);
-        this.attention=this.attention.bind(this);
+        this.delete=this.delete.bind(this);
+        this.like=this.like.bind(this);
+        this.dislike=this.dislike.bind(this);
+        this.state = {
+            action:[null,null,null,null,null,null,null,null,null,null],
+        }
     }
-    attention(e){
+    like(self,i,e){
         e.preventDefault();
-        console.log("wwwww");
-
+        this.state.action[i] = "liked"
+        this.setState({
+            action: this.state.action
+        });
+    }
+    dislike(self,i,e){
+        e.preventDefault();
+        this.state.action[i] = "disliked"
+        this.setState({
+            action: this.state.action
+        });
+    }
+    delete(self,i,e){
+        e.preventDefault();
+        this.props.deleteItem(i);
     }
     render() {
+        const { action } = this.state;
         return (
             <div className="list-swiper">
                 {
@@ -78,8 +97,17 @@ class List extends React.Component {
                                         {this.props.progress?(<Progress percent={item.rating*10} size="small" />):""}
                                         <span className="price">{item.product.prodAmount.amount}</span>
                                         <div className="funcBlock">
-                                            <i onClick={(e)=>this.attention(e)} className={"like icon iconfont "+(this.props.attention?"icon-follow":"")}></i>
-                                            <i className={"delete icon iconfont "+(this.props.delete?"icon-delete":"")}></i>
+                                            <span onClick={this.like.bind(null,null,i)}>
+                                                <Tooltip title="Like">
+                                                    <Icon  type="like" theme={action[i] === 'liked' ? 'filled' : 'outlined'}/>
+                                                </Tooltip>
+                                            </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span onClick={this.dislike.bind(null,null,i)}>
+                                                <Tooltip title="Dislike">
+                                                    <Icon type="dislike" theme={action[i] === 'disliked' ? 'filled' : 'outlined'}/>
+                                                </Tooltip>
+                                            </span>
+                                            <i onClick={this.delete.bind(null,null,i)} className={"delete icon iconfont "+(this.props.delete?"icon-delete":"")}></i>
                                         </div>
                                     </div>
                                 </div>

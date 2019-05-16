@@ -18,7 +18,10 @@ class Detial extends React.Component {
     constructor (props) {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        console.log(userInfo);
         const productId = window.location.hash.split("=")[1];
+        this.deleteItem = this.deleteItem.bind(this);
+        this.buyProduct = this.buyProduct.bind(this);
         this.state = {
             info:{
                 language: "Language",
@@ -31,6 +34,7 @@ class Detial extends React.Component {
                 like:"",
                 disLike:""
             },
+            userInfo: userInfo,
             productName: "",
             productId: productId,
             productImg: "",
@@ -60,20 +64,23 @@ class Detial extends React.Component {
        
     }
     componentDidMount(){
-      let timeSec = 0;
-      this.timeID = setInterval(() => {
+        let timeSec = 0;
+        this.timeID = setInterval(() => {
         this.setState({
-          date : timeSec++
+            date : timeSec++
         })
         // console.log(timeSec + "b");
-      }, 1000);
+        }, 1000);
     }
     componentWillMount() {
       const parameter = {
         productId: this.state.productId,
-        customerId: 2
+        // customerId: this.state.userInfo.customerId
+        customerId:4
       }
+      console.log(parameter);
       const path = Paths.detail;
+      console.log(path);
       const res  = post(path, parameter);
       res.then(value =>{
           const res = value.result;
@@ -100,51 +107,27 @@ class Detial extends React.Component {
               }
           }
       })
-    // Ajax("post", path, JSON.stringify(parameter)).then((response) => {
-    //     const res = JSON.parse(response).result;
-    //     console.log(res);
-    //     this.setState({
-    //       productName: res.title,
-    //       productId: res.productId,
-    //       productImg: res.imagePath1,
-    //       productCategory: res.prodCategory.categoryName,
-    //       productIntroduction:res.description,
-    //       productPrice: res.prodAmount.amount,
-    //     });
-    //     return response;
-    // })
-    
-    
-        /*fetch("./json/list.json")
-            .then(res => res.json())
-            .then(json => {
-                this.renderItem(json)
-            })*/
-
     }
     componentWillUnmount(){
-      console.log(this.state.date + "c");
       const path2 = Paths.storeBehavior;
       const parameter2 = {
-        "favouriteId":"111",
-        "customerId":"11",
+        "favouriteId":this.state.likes,
+        "customerId":this.state.userInfo.customerId,
+        "createTime":this.state.date,
         "Product":{
-          "productId":"10",
-          "title":"1111",
-          "description":"111111",
-          "imagePath1":"11111",
-          "imagePath2":"1111",
-          "createTime":"11111111",
+          "productId":this.state.productId,
+          "title":this.state.productName,
+          "description":this.state.productIntroduction,
+          "imagePath1":this.state.productImg,
           "prodCategory":{
-            "categoryId":"111",
-            "categoryName":"111"
+            "categoryId":"",
+            "categoryName":this.state.productCategory
           },
           "prodAmount":{
-            "amount":"111",
+            "amount":this.state.productPrice,
             "currencyCode":"USD"
           }
-        },
-        "createTime":"11111111"
+        }
       }
       console.log(parameter2);
       const res2  = post(path2, parameter2);
@@ -179,6 +162,42 @@ class Detial extends React.Component {
             // productList: renderList,
             recommendList: data["property"].list
         })
+    }
+    deleteItem(i){
+        this.state.recommendList.splice(i,1)
+        this.setState({
+            recommendList: this.state.recommendList
+        })
+    }
+    buyProduct(){
+      const path2 = Paths.storeBehavior;
+      const parameter2 = {
+        "favouriteId":this.state.likes,
+        "customerId":this.state.userInfo.customerId,
+        "createTime":this.state.date,
+        "Product":{
+          "productId":this.state.productId,
+          "title":this.state.productName,
+          "description":this.state.productIntroduction,
+          "imagePath1":this.state.productImg,
+          "prodCategory":{
+            "categoryId":"",
+            "categoryName":this.state.productCategory
+          },
+          "prodAmount":{
+            "amount":this.state.productPrice,
+            "currencyCode":"USD"
+          }
+        }
+      }
+      console.log(parameter2);
+      const BuyP  = post(path2, parameter2);
+      BuyP.then(value =>{
+        const res = value.status;
+        if(value.status == '1'){
+        console.log('buy success');
+        }
+      })
     }
     render() {
       //  const { getFieldDecorator } = this.props.form;
@@ -236,7 +255,7 @@ class Detial extends React.Component {
                             </label>
                             <label>
                                 <a href={this.state.detial.productUrl}>
-                                   <p className = 'product_insure_main_buy'>BUY NOW</p>
+                                   <p className = 'product_insure_main_buy' onClick={this.buyProduct}>BUY NOW</p>
                                    </a>
                                    <Comment
                                     actions={actions}
@@ -246,7 +265,7 @@ class Detial extends React.Component {
                     </div>
                     <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
                     <div>
-                        <List list={this.state.recommendList} attention={true} progress={true} delete={true}></List>
+                        <List list={this.state.recommendList} attention={true} progress={true} delete={true} deleteItem={this.deleteItem}></List>
                     </div>
                 </div>
             </div>
