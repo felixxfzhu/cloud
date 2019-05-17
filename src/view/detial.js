@@ -22,9 +22,6 @@ class Detial extends React.Component {
     constructor (props) {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        if(!userInfo){
-            this.props.history.push( '/login');
-        }
         const productId = window.location.hash.split("=")[1];
         this.deleteItem = this.deleteItem.bind(this);
         this.buyProduct = this.buyProduct.bind(this);
@@ -84,13 +81,14 @@ class Detial extends React.Component {
         }, 1000);
     }
     componentWillMount() {
+        var userInfo = JSON.parse(localStorage.getItem("userInfo"));
         let cussessNum = 0;
         this.setState({
             isShowAndHide: "show"
         })
         const parameter = {
             customerId: this.state.productDetial.productId,
-            productId: this.state.userInfo.customerId
+            productId: userInfo?this.state.userInfo.customerId:1
         }
         const res  = post(Paths.detail, parameter);
         res.then((response) =>{
@@ -109,60 +107,53 @@ class Detial extends React.Component {
                 Message.error(message)
             }
         })
-        var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        if(userInfo){
-            API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:5}}).then((response) => {
-                cussessNum++;
-                if(cussessNum=="2"){
-                    this.setState({
-                        isShowAndHide: "hide"
-                    })
-                }
-                if(response){
-                    const {status, message, result} = response;
-                    if(status == "1"){
-                        console.log(result.userBase)
-                        this.setState({
-                            recommendList: result.userBase
-                        })
-                    }else{
-                        Message.error(message)
-                    }
-                }
-            })
-        }else{
+        API.recommendation({customerId:userInfo?userInfo.customerId:3,page:{pageNum:1,pageLimit:5}}).then((response) => {
             cussessNum++;
             if(cussessNum=="2"){
                 this.setState({
                     isShowAndHide: "hide"
                 })
             }
-        }
-    }
-    componentWillUnmount(){
-        const params = {
-            "favouriteId":this.state.likes,
-            "customerId":this.state.userInfo.customerId,
-            "createTime":this.state.date,
-            "Product":{
-                "productId":this.state.productDetial.productId,
-                "title":this.state.productDetial.title,
-                "description":this.state.productDetial.description,
-                "imagePath1":this.state.productDetial.imagePath1,
-                "prodCategory":{
-                    "categoryId":"",
-                    "categoryName":this.state.productDetial.prodCategory.categoryName
-                },
-                "prodAmount":{
-                    "amount":this.state.productDetial.prodAmount.amount,
-                    "currencyCode":"USD"
+            if(response){
+                const {status, message, result} = response;
+                if(status == "1"){
+                    console.log(result.userBase)
+                    this.setState({
+                        recommendList: result.userBase
+                    })
+                }else{
+                    Message.error(message)
                 }
             }
+        })
+    }
+    componentWillUnmount(){
+         var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+         if(userInfo){
+            const params = {
+                "favouriteId":this.state.likes,
+                "customerId":this.state.userInfo.customerId,
+                "createTime":this.state.date,
+                "Product":{
+                    "productId":this.state.productDetial.productId,
+                    "title":this.state.productDetial.title,
+                    "description":this.state.productDetial.description,
+                    "imagePath1":this.state.productDetial.imagePath1,
+                    "prodCategory":{
+                        "categoryId":"",
+                        "categoryName":this.state.productDetial.prodCategory.categoryName
+                    },
+                    "prodAmount":{
+                        "amount":this.state.productDetial.prodAmount.amount,
+                        "currencyCode":"USD"
+                    }
+                }
+            }
+            console.log(params);
+            const res2  = post(Paths.storeBehavior, params);
+            console.log(res2);
+            clearInterval(this.timeID);
         }
-        console.log(params);
-        const res2  = post(Paths.storeBehavior, params);
-        console.log(res2);
-        clearInterval(this.timeID);
     }
     deleteItem(i){
         this.state.recommendList.splice(i,1)
@@ -171,34 +162,39 @@ class Detial extends React.Component {
         })
     }
     buyProduct(){
-         const params = {
-            "favouriteId":this.state.likes,
-            "customerId":this.state.userInfo.customerId,
-            "createTime":this.state.date,
-            "Product":{
-                "productId":this.state.productDetial.productId,
-                "title":this.state.productDetial.title,
-                "description":this.state.productDetial.description,
-                "imagePath1":this.state.productDetial.imagePath1,
-                "prodCategory":{
-                    "categoryId":"",
-                    "categoryName":this.state.productDetial.prodCategory.categoryName
-                },
-                "prodAmount":{
-                    "amount":this.state.productDetial.prodAmount.amount,
-                    "currencyCode":"USD"
+        var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        if(userInfo){
+            const params = {
+                "favouriteId":this.state.likes,
+                "customerId":this.state.userInfo.customerId,
+                "createTime":this.state.date,
+                "Product":{
+                    "productId":this.state.productDetial.productId,
+                    "title":this.state.productDetial.title,
+                    "description":this.state.productDetial.description,
+                    "imagePath1":this.state.productDetial.imagePath1,
+                    "prodCategory":{
+                        "categoryId":"",
+                        "categoryName":this.state.productDetial.prodCategory.categoryName
+                    },
+                    "prodAmount":{
+                        "amount":this.state.productDetial.prodAmount.amount,
+                        "currencyCode":"USD"
+                    }
                 }
             }
+            console.log(params);
+            const BuyP  = post(Paths.storeBehavior, params);
+            BuyP.then(value =>{
+                const res = value.status;
+                if(value.status == '1'){
+                    success('buy success');
+                    console.log('buy success');
+                }
+            })
+        }else{
+             this.props.history.push( '/login');
         }
-        console.log(params);
-        const BuyP  = post(Paths.storeBehavior, params);
-        BuyP.then(value =>{
-            const res = value.status;
-            if(value.status == '1'){
-                success('buy success');
-                console.log('buy success');
-            }
-        })
     }
     componentWillReceiveProps(){
         const {history} = this.props;

@@ -12,9 +12,6 @@ class Home extends React.Component {
     constructor (props) {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        if(!userInfo){
-            this.props.history.push( '/login');
-        }
         this.deleteItem=this.deleteItem.bind(this);
         this.changePagination = this.changePagination.bind(this);
         this.state = {
@@ -96,26 +93,24 @@ class Home extends React.Component {
             }
         })
         var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        if(userInfo){
-            API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:10}}).then((response) => {
-                cussessNum++;
-                if(cussessNum=="2"){
+        API.recommendation({customerId:userInfo?userInfo.customerId:2,page:{pageNum:1,pageLimit:10}}).then((response) => {
+            cussessNum++;
+            if(cussessNum=="2"){
+                this.setState({
+                    isShowAndHide: "hide"
+                })
+            }
+            if(response){
+                const {status, message, result} = response;
+                if(status == "1"){
                     this.setState({
-                        isShowAndHide: "hide"
+                        recommendList: result.userBase
                     })
+                }else{
+                    Message.error(message)
                 }
-                if(response){
-                    const {status, message, result} = response;
-                    if(status == "1"){
-                        this.setState({
-                            recommendList: result.userBase
-                        })
-                    }else{
-                        Message.error(message)
-                    }
-                }
-            })
-        }
+            }
+        })
     }
     componentDidMount() {
         //console.log(this.state)
