@@ -53,7 +53,9 @@ html{height: 100%; min-width: 600px;}
 .list-swiper .productName{width: 100%;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1;overflow: hidden;line-height: 20px;}
 .list-swiper div.ant-progress-outer{padding-right: 0;}
 .list-swiper .ant-progress-text{display: none;width: 0;}
-.list-swiper .price{width: 100%;text-align:right;color: red;}
+.list-swiper .price-swiper{width: 100%;text-align:right;padding: 0 5px;}
+.list-swiper .insure_from_price {color: #ff7814;}
+.list-swiper .price{color: red;}
 .list-swiper .funcBlock{width: 100%;}
 .list-swiper .funcBlock .ant-comment{float: left;color: red;width: 60%;height: 50px;}
 .list-swiper .funcBlock .ant-comment-inner{padding: 0;}

@@ -57,8 +57,7 @@ class Home extends React.Component {
             renderList[key]["pageIndex"] = 0;
         })
         this.setState({
-            productList: renderList,
-            recommendList: data["property"].list
+            productList: renderList
         })
     }
     changePagination(e, key, page,){
@@ -71,6 +70,11 @@ class Home extends React.Component {
     }
     componentWillMount() {
         let cussessNum = 0;
+        /*fetch("./json/list.json")
+            .then(res => res.json())
+            .then(json => {
+                this.renderItem(json)
+            })*/
         this.setState({
             isShowAndHide: "show"
         })
@@ -109,11 +113,6 @@ class Home extends React.Component {
                 }
             }
         })
-        /*fetch("./json/list.json")
-            .then(res => res.json())
-            .then(json => {
-                this.renderItem(json)
-            })*/
     }
     componentDidMount() {
         //console.log(this.state)

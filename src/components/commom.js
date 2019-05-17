@@ -95,7 +95,10 @@ class List extends React.Component {
                                     <div className="productDetial">
                                         <div className="productName">{item.product.prodCategory.categoryName}</div>
                                         {this.props.progress?(<Progress percent={item.rating*10} size="small" />):""}
-                                        <span className="price">{item.product.prodAmount.amount}</span>
+                                        <div className="price-swiper">
+                                            <span className="insure_from_price">$ </span>
+                                            <span className="price">{item.product.prodAmount.amount}</span>
+                                         </div>
                                         <div className="funcBlock">
                                             <span onClick={this.like.bind(null,null,i)}>
                                                 <Tooltip title="Like">
