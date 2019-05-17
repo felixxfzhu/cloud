@@ -13,7 +13,7 @@ class Home extends React.Component {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         if(!userInfo){
-            this.props.history.push( '/regiser');
+            this.props.history.push( '/login');
         }
         this.deleteItem=this.deleteItem.bind(this);
         this.changePagination = this.changePagination.bind(this);
@@ -21,7 +21,7 @@ class Home extends React.Component {
             info:{
                 language: "Language",
                 menulist: ["Chinese", "English"],
-                profile:userInfo?userInfo.userName:"Login",
+                profile:userInfo?userInfo.loginName:"Login",
                 toLink:userInfo?"/presonalInfo/":"/login",
                 icon:"icon-denglu"
             },
@@ -96,24 +96,26 @@ class Home extends React.Component {
             }
         })
         var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:10}}).then((response) => {
-            cussessNum++;
-            if(cussessNum=="2"){
-                this.setState({
-                    isShowAndHide: "hide"
-                })
-            }
-            if(response){
-                const {status, message, result} = response;
-                if(status == "1"){
+        if(userInfo){
+            API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:10}}).then((response) => {
+                cussessNum++;
+                if(cussessNum=="2"){
                     this.setState({
-                        recommendList: result.userBase
+                        isShowAndHide: "hide"
                     })
-                }else{
-                    Message.error(message)
                 }
-            }
-        })
+                if(response){
+                    const {status, message, result} = response;
+                    if(status == "1"){
+                        this.setState({
+                            recommendList: result.userBase
+                        })
+                    }else{
+                        Message.error(message)
+                    }
+                }
+            })
+        }
     }
     componentDidMount() {
         //console.log(this.state)

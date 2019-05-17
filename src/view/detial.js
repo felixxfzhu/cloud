@@ -22,7 +22,9 @@ class Detial extends React.Component {
     constructor (props) {
         super(props);
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        console.log(userInfo);
+        if(!userInfo){
+            this.props.history.push( '/login');
+        }
         const productId = window.location.hash.split("=")[1];
         this.deleteItem = this.deleteItem.bind(this);
         this.buyProduct = this.buyProduct.bind(this);
@@ -31,7 +33,7 @@ class Detial extends React.Component {
             info:{
                 language: "Language",
                 menulist: ["Chinese", "English"],
-                profile:userInfo?userInfo.userName:"Login",
+                profile:userInfo?userInfo.loginName:"Login",
                 toLink:userInfo?"/presonalInfo/":"/login/",
                 icon:"icon-denglu"
             },
@@ -49,7 +51,7 @@ class Detial extends React.Component {
                 productId: productId,
                 title: ""
             },
-            userInfo: userInfo,
+            userInfo: userInfo?userInfo:{customerId:null,loginName:null,loginPassword:null},
             likes: 0,
             dislikes: 0,            
             action: null,
@@ -108,25 +110,34 @@ class Detial extends React.Component {
             }
         })
         var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:5}}).then((response) => {
+        if(userInfo){
+            API.recommendation({customerId:userInfo.customerId,page:{pageNum:1,pageLimit:5}}).then((response) => {
+                cussessNum++;
+                if(cussessNum=="2"){
+                    this.setState({
+                        isShowAndHide: "hide"
+                    })
+                }
+                if(response){
+                    const {status, message, result} = response;
+                    if(status == "1"){
+                        console.log(result.userBase)
+                        this.setState({
+                            recommendList: result.userBase
+                        })
+                    }else{
+                        Message.error(message)
+                    }
+                }
+            })
+        }else{
             cussessNum++;
             if(cussessNum=="2"){
                 this.setState({
                     isShowAndHide: "hide"
                 })
             }
-            if(response){
-                const {status, message, result} = response;
-                if(status == "1"){
-                    console.log(result.userBase)
-                    this.setState({
-                        recommendList: result.userBase
-                    })
-                }else{
-                    Message.error(message)
-                }
-            }
-        })
+        }
     }
     componentWillUnmount(){
         const params = {
