@@ -27,6 +27,7 @@ class Home extends React.Component {
             },
             productList: {},
             isShowAndHide:"hide",
+            ifLikeList:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
             recommendList: []
         };
 
@@ -46,7 +47,7 @@ class Home extends React.Component {
     renderItem(data, key){
         const renderList={};
         Object.keys(data).map(key => {
-            data[key].list.sort(this.objectArraySort('Recommendation'));
+            data[key].list.sort(this.objectArraySort('rating'));
             renderList[key]={};
             renderList[key]["name"]= data[key].name;
             renderList[key]["list"]=[];
@@ -70,11 +71,11 @@ class Home extends React.Component {
     }
     componentWillMount() {
         let cussessNum = 0;
-        /*fetch("./json/list.json")
+        fetch("./json/list.json")
             .then(res => res.json())
             .then(json => {
                 this.renderItem(json)
-            })*/
+            })
         this.setState({
             isShowAndHide: "show"
         })
@@ -118,7 +119,7 @@ class Home extends React.Component {
         //console.log(this.state)
     }
     deleteItem(i){
-        this.state.recommendList.splice(i,1)
+        this.state.recommendList.splice(i,1);
         this.setState({
             recommendList: this.state.recommendList
         })
@@ -135,7 +136,7 @@ class Home extends React.Component {
                         {
                             Object.keys(this.state.productList).map((key)=>
                                 <Tabs.TabPane tab={this.state.productList[key].name} key={key}>
-                                    <List list={this.state.productList[key].list[this.state.productList[key].pageIndex]} attention={true} progress={true}></List>
+                                    <List list={this.state.productList[key].list[this.state.productList[key].pageIndex]} ifLikeList={this.state.ifLikeList} progress={true}></List>
                                     <div className="pagination">
                                         <Pagination simple defaultCurrent={1} onChange={this.changePagination.bind(null,null,key)} total={this.state.productList[key].length} hideOnSinglePage={false} pageSize={5}/>
                                     </div>
@@ -145,7 +146,7 @@ class Home extends React.Component {
                     </Tabs>
                     <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
                     <div className="recommendationList">
-                        <List list={this.state.recommendList} progress={true} delete={true} deleteItem={this.deleteItem}></List>
+                        <List list={this.state.recommendList} progress={true} delete={true} deleteItem={this.deleteItem} ifLikeList={this.state.ifLikeList}></List>
                     </div>
                 </div>
                  <Loading isShowAndHide={this.state.isShowAndHide}/>

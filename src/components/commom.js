@@ -61,7 +61,7 @@ class List extends React.Component {
         this.like=this.like.bind(this);
         this.dislike=this.dislike.bind(this);
         this.state = {
-            action:[null,null,null,null,null,null,null,null,null,null],
+            action:this.props.ifLikeList,
         }
     }
     like(self,i,e){
@@ -81,6 +81,10 @@ class List extends React.Component {
     delete(self,i,e){
         e.preventDefault();
         this.props.deleteItem(i);
+        this.state.action.splice(i,1)
+        this.setState({
+            action: this.state.action
+        });
     }
     render() {
         const { action } = this.state;

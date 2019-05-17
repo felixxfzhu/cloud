@@ -40,25 +40,20 @@ class Detial extends React.Component {
                 disLike:""
             },
             productDetial:{
-                createTime: "2019-05-05",
-                description: "这是产品介绍，我们不想写太多。这是产品介绍，我们不想写太多。这是产品介绍，我们不想写太多。这是产品介绍，我们不想写太多。这是产品介绍，我们不想写太多。",
-                imagePath1: "https://www.hsbcinsurance.com.cn/content/dam/hsbc/insh/images/lifestage-1920x1080.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg",
-                imagePath2: "https://www.hsbcinsurance.com.cn/content/dam/hsbc/insh/images/1280x720-0116.jpg/jcr:content/renditions/cq5dam.web.590.1000.jpeg",
-                prodAmount: {amount: 98, currencyCode: null},
-                prodCategory: {categoryId: 1, categoryName: "旅游险"},
-                productId: 5,
-                title: "旅游险5号计划"
+                createTime: "",
+                description: "",
+                imagePath1: "",
+                imagePath2: "",
+                prodAmount: {amount: "", currencyCode: null},
+                prodCategory: {categoryId: "", categoryName: ""},
+                productId: productId,
+                title: ""
             },
             userInfo: userInfo,
-            productName: "",
-            productId: productId,
-            productImg: "",
-            productCategory: "",
-            productIntroduction:"",
-            productPrice: "",
             likes: 0,
-            dislikes: 0,
+            dislikes: 0,            
             action: null,
+            ifLikeList:[null,null,null,null,null,null,null,null,null,null],
             recommendList: [],
             date: new Date()
         },
@@ -92,7 +87,7 @@ class Detial extends React.Component {
             isShowAndHide: "show"
         })
         const parameter = {
-            customerId: this.state.productId,
+            customerId: this.state.productDetial.productId,
             productId: this.state.userInfo.customerId
         }
         const res  = post(Paths.detail, parameter);
@@ -134,30 +129,29 @@ class Detial extends React.Component {
         })
     }
     componentWillUnmount(){
-      const path2 = Paths.storeBehavior;
-      const parameter2 = {
-        "favouriteId":this.state.likes,
-        "customerId":this.state.userInfo.customerId,
-        "createTime":this.state.date,
-        "Product":{
-          "productId":this.state.productId,
-          "title":this.state.productName,
-          "description":this.state.productIntroduction,
-          "imagePath1":this.state.productImg,
-          "prodCategory":{
-            "categoryId":"",
-            "categoryName":this.state.productCategory
-          },
-          "prodAmount":{
-            "amount":this.state.productPrice,
-            "currencyCode":"USD"
-          }
+        const params = {
+            "favouriteId":this.state.likes,
+            "customerId":this.state.userInfo.customerId,
+            "createTime":this.state.date,
+            "Product":{
+                "productId":this.state.productDetial.productId,
+                "title":this.state.productDetial.title,
+                "description":this.state.productDetial.description,
+                "imagePath1":this.state.productDetial.imagePath1,
+                "prodCategory":{
+                    "categoryId":"",
+                    "categoryName":this.state.productDetial.prodCategory.categoryName
+                },
+                "prodAmount":{
+                    "amount":this.state.productDetial.prodAmount.amount,
+                    "currencyCode":"USD"
+                }
+            }
         }
-      }
-      console.log(parameter2);
-      const res2  = post(path2, parameter2);
-      console.log(res2);
-      clearInterval(this.timeID);
+        console.log(params);
+        const res2  = post(Paths.storeBehavior, params);
+        console.log(res2);
+        clearInterval(this.timeID);
     }
     deleteItem(i){
         this.state.recommendList.splice(i,1)
@@ -166,21 +160,21 @@ class Detial extends React.Component {
         })
     }
     buyProduct(){
-        const params = {
+         const params = {
             "favouriteId":this.state.likes,
             "customerId":this.state.userInfo.customerId,
             "createTime":this.state.date,
             "Product":{
-                "productId":this.state.productId,
-                "title":this.state.productName,
-                "description":this.state.productIntroduction,
-                "imagePath1":this.state.productImg,
+                "productId":this.state.productDetial.productId,
+                "title":this.state.productDetial.title,
+                "description":this.state.productDetial.description,
+                "imagePath1":this.state.productDetial.imagePath1,
                 "prodCategory":{
                     "categoryId":"",
-                    "categoryName":this.state.productCategory
+                    "categoryName":this.state.productDetial.prodCategory.categoryName
                 },
                 "prodAmount":{
-                    "amount":this.state.productPrice,
+                    "amount":this.state.productDetial.prodAmount.amount,
                     "currencyCode":"USD"
                 }
             }
@@ -275,7 +269,7 @@ class Detial extends React.Component {
                     </div>
                     <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
                     <div>
-                        <List list={this.state.recommendList} attention={true} progress={true} delete={true} deleteItem={this.deleteItem}></List>
+                        <List list={this.state.recommendList} attention={true} progress={true} delete={true} deleteItem={this.deleteItem} ifLikeList={this.state.ifLikeList}></List>
                     </div>
                 </div>
                 <Loading isShowAndHide={this.state.isShowAndHide}/>
