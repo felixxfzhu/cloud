@@ -189,6 +189,7 @@ class Detial extends React.Component {
                 const res = value.status;
                 if(value.status == '1'){
                     success('buy success');
+                    this.props.history.push( '/');
                     console.log('buy success');
                 }
             })
