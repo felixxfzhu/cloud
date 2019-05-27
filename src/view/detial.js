@@ -82,12 +82,13 @@ class Detial extends React.Component {
     }
     componentWillMount() {
         var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        let prodId = location.hash.split("=")[1];
         let cussessNum = 0;
         this.setState({
             isShowAndHide: "show"
         })
         const parameter = {
-            customerId: this.state.productDetial.productId,
+            customerId: prodId,
             productId: userInfo?this.state.userInfo.customerId:1
         }
         const res  = post(Paths.detail, parameter);
@@ -197,13 +198,12 @@ class Detial extends React.Component {
         }
     }
     componentWillReceiveProps(){
-        const {history} = this.props;
-        console.log(history.location.search.split("=")[1]);
+        let prodId = location.hash.split("=")[1];
         this.setState({
             isShowAndHide: "show"
         })
         const parameter = {
-            customerId: history.location.search.split("=")[1],
+            customerId: prodId,
             productId: this.state.userInfo.customerId
         }
         console.log(parameter);
