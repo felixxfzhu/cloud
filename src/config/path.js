@@ -19,7 +19,7 @@ const Paths = {
     loadProdCategorys: {url:HOST+"loadProdCategorys",method:"get"},
     loadProductsByProdCategory: {url:HOST+"loadProductsByProdCategory",method:"post"},
     products: {url:HOST+"loadProducts",method:"post"},
-    detail: {url:HOST+"loadProductDetail",method:"post"},
+    details: {url:HOST+"loadProductDetail",method:"post"},
     recommendation: {url:HOST+"loadRecProds",method:"post"},
     search: {url:HOST+"search",method:"post"},
     storeBehavior: {url:HOST+"storeBehavior",method:"post"}

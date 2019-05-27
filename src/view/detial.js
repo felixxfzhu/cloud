@@ -207,7 +207,7 @@ class Detial extends React.Component {
             productId: this.state.userInfo.customerId
         }
         console.log(parameter);
-        API.detail(parameter).then((response) => {
+        API.details(parameter).then((response) => {
             this.setState({
                 isShowAndHide: "hide"
             })
