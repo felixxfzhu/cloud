@@ -2,11 +2,12 @@
  * Created by dell on 2019/4/21.
  */
 import React from 'react';
+import _ from "lodash";
 import { Link } from 'react-router-dom';
 import {Tabs, Input, Pagination, Modal, message as Message } from "antd";
 import {Paths, API} from "../config";
 
-import { Head, List, Loading} from "./../components/commom";
+import { Head, List, ProdList, Loading} from "./../components/commom";
 
 class Home extends React.Component {
     constructor (props) {
@@ -14,6 +15,8 @@ class Home extends React.Component {
         const userInfo = JSON.parse(localStorage.getItem("userInfo"));
         this.deleteItem=this.deleteItem.bind(this);
         this.changePagination = this.changePagination.bind(this);
+        this.getProdCategorysList = this.getProdCategorysList.bind(this);
+        this.prodCategorys = this.prodCategorys.bind(this);
         this.state = {
             info:{
                 language: "Language",
@@ -22,7 +25,7 @@ class Home extends React.Component {
                 toLink:userInfo?"/presonalInfo/":"/login",
                 icon:"icon-denglu"
             },
-            productList: {},
+            productList: [],
             isShowAndHide:"hide",
             ifLikeList:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
             recommendList: []
@@ -32,51 +35,47 @@ class Home extends React.Component {
     search(value){
         console.log(value)
     }
-    objectArraySort(keyName) {
-        return function (objectN, objectM) {
-            var valueN = objectN[keyName]
-            var valueM = objectM[keyName]
-            if (valueN < valueM) return 1
-            else if (valueN > valueM) return -1
-            else return 0
-        }
+    changePagination(e, key,prodId, page,){
+        prodId++;
+        this.getProdCategorysList(prodId, page);
     }
-    renderItem(data, key){
-        const renderList={};
-        Object.keys(data).map(key => {
-            data[key].list.sort(this.objectArraySort('rating'));
-            renderList[key]={};
-            renderList[key]["name"]= data[key].name;
-            renderList[key]["list"]=[];
-            for (var i=0; i < Math.ceil(data[key].list.length/5); i++){
-                renderList[key].list.push(data[key].list.slice(i*5,(i+1)*5));
+    prodCategorys(category){
+        console.log("category"+category);
+        category++;
+        this.getProdCategorysList(category, 1);
+    }
+    getProdCategorysList(prodId, pageNum){
+        this.setState({
+            isShowAndHide: "show"
+        })
+        API.loadProductsByProdCategory({"prodCategoryId":prodId, "page":{"pageNum":pageNum, "pageLimit":10}}).then((response) => {
+            this.setState({
+                    isShowAndHide: "hide"
+                })
+            if(response){
+                const {status, message, result} = response;
+                if(status == "1"){
+                    console.log("prodCategoryId")
+                    console.log(result)
+                    let prodList = this.state.productList;
+                    prodList[prodId-1].prodList = result.data;
+                    prodList[prodId-1].total = result.totalElements;
+                    this.setState({
+                        productList: prodList
+                    })
+                    console.log(this.state.productList);
+                }else{
+                    Message.error(message)
+                }
             }
-            renderList[key]["length"] = data[key].list.length;
-            renderList[key]["pageIndex"] = 0;
-        })
-        this.setState({
-            productList: renderList
-        })
-    }
-    changePagination(e, key, page,){
-        console.log("key"+key)
-        console.log("page"+page)
-        this.state.productList[key].pageIndex = page-1;
-        this.setState({
-            productList: this.state.productList
         })
     }
     componentWillMount() {
         let cussessNum = 0;
-        fetch("./json/list.json")
-            .then(res => res.json())
-            .then(json => {
-                this.renderItem(json)
-            })
         this.setState({
             isShowAndHide: "show"
         })
-        API.products({pageNum:1,pageLimit:5}).then((response) => {
+        API.loadProdCategorys().then((response) => {
             cussessNum++;
             if(cussessNum=="2"){
                 this.setState({
@@ -86,7 +85,15 @@ class Home extends React.Component {
             if(response){
                 const {status, message, result} = response;
                 if(status == "1"){
-                    console.log(response)
+                    _.keys(result).forEach((key)=>{
+                        result[key]["prodList"] = [];
+                        result[key]["total"] = 0;
+                    })
+                    this.setState({
+                        productList: result
+                    })
+                    console.log(this.state.productList);
+                    this.getProdCategorysList(1,1);
                 }else{
                     Message.error(message)
                 }
@@ -126,22 +133,22 @@ class Home extends React.Component {
             <div id="home" className="page home">
                 <Head info={this.state.info} ></Head>
                 <div className="content">
-                    <div className="search">
+                    {/*<div className="search">
                         <Input.Search placeholder="Please input" enterButton="Search" size="large" onSearch={(value)=>this.search}/>
-                    </div>
-                    <Tabs defaultActiveKey="1" tabPosition="left" style={{ height: 240 }} >
+                    </div>*/}
+                    <Tabs defaultActiveKey="0" tabPosition="left" style={{ height: 430}} onChange={this.prodCategorys}>
                         {
-                            Object.keys(this.state.productList).map((key)=>
-                                <Tabs.TabPane tab={this.state.productList[key].name} key={key}>
-                                    <List list={this.state.productList[key].list[this.state.productList[key].pageIndex]} ifLikeList={this.state.ifLikeList} progress={true}></List>
+                            this.state.productList.map((item, key)=>
+                                <Tabs.TabPane tab={item.categoryName} key={key}>
+                                    <ProdList list={item.prodList} ifLikeList={this.state.ifLikeList} progress={true}></ProdList>
                                     <div className="pagination">
-                                        <Pagination simple defaultCurrent={1} onChange={this.changePagination.bind(null,null,key)} total={this.state.productList[key].length} hideOnSinglePage={false} pageSize={5}/>
+                                        <Pagination simple defaultCurrent={1} onChange={this.changePagination.bind(null,null,item.categoryId,key)} total={item.total} hideOnSinglePage={false} pageSize={10}/>
                                     </div>
                                 </Tabs.TabPane>
                             )
                         }
                     </Tabs>
-                    <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                    <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp; Guess You Like &nbsp;&nbsp;&nbsp;&nbsp;</h1>
                     <div className="recommendationList">
                         <List list={this.state.recommendList} progress={true} delete={true} deleteItem={this.deleteItem} ifLikeList={this.state.ifLikeList}></List>
                     </div>

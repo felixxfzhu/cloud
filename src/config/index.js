@@ -11,7 +11,7 @@ function mapUrlObjToFuncObj(urlObj){
 	_.keys(urlObj).forEach((key)=>{
 		const item = urlObj[key];
 		api[key] = function(params){
-			return http.post(item,params)
+			return http[item.method](item.url,params)
 		}
 	})
 	return api;
@@ -20,7 +20,7 @@ function mapUrlObjToStrObj(urlObj){
 	const url= {}
 	_.keys(urlObj).forEach((key)=>{
 		const item = urlObj[key];
-		url[key] = item;
+		url[key] = item.url;
 	})
 	return url;
 }

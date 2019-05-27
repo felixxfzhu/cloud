@@ -274,7 +274,7 @@ class Detial extends React.Component {
                             </label>
                         </div> 
                     </div>
-                    <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                    <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp; Guess You Like &nbsp;&nbsp;&nbsp;&nbsp;</h1>
                     <div>
                         <List list={this.state.recommendList} attention={true} progress={true} delete={true} deleteItem={this.deleteItem} ifLikeList={this.state.ifLikeList}></List>
                     </div>
