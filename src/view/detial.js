@@ -88,8 +88,7 @@ class Detial extends React.Component {
             isShowAndHide: "show"
         })
         const parameter = {
-            customerId: prodId,
-            productId: userInfo?this.state.userInfo.customerId:1
+            productId: prodId
         }
         console.log(parameter)
         const res  = post(Paths.details.url, parameter);
@@ -110,7 +109,7 @@ class Detial extends React.Component {
                 Message.error(message)
             }
         })
-        API.recommendation({customerId:userInfo?userInfo.customerId:3,page:{pageNum:1,pageLimit:5}}).then((response) => {
+        API.recommendation({customerId:userInfo?userInfo.customerId:1,page:{pageNum:1,pageLimit:5}}).then((response) => {
             cussessNum++;
             if(cussessNum=="2"){
                 this.setState({
@@ -199,8 +198,7 @@ class Detial extends React.Component {
             isShowAndHide: "show"
         })
         const parameter = {
-            customerId: prodId,
-            productId: this.state.userInfo.customerId
+            productId: prodId
         }
         console.log(parameter);
         API.details(parameter).then((response) => {
