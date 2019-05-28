@@ -27,7 +27,7 @@ class Home extends React.Component {
             },
             productList: [],
             isShowAndHide:"hide",
-            ifLikeList:[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+            ifLikeList:[null,null,null,null,null,null,null,null,null,null],
             recommendList: []
         };
 
@@ -88,6 +88,7 @@ class Home extends React.Component {
                     _.keys(result).forEach((key)=>{
                         result[key]["prodList"] = [];
                         result[key]["total"] = 0;
+                        result[key]["ifLike"] = [null,null,null,null,null,null,null,null,null,null];
                     })
                     this.setState({
                         productList: result
@@ -140,7 +141,7 @@ class Home extends React.Component {
                         {
                             this.state.productList.map((item, key)=>
                                 <Tabs.TabPane tab={item.categoryName} key={key}>
-                                    <ProdList list={item.prodList} ifLikeList={this.state.ifLikeList} progress={true}></ProdList>
+                                    <ProdList list={item.prodList} ifLike={item.ifLike} progress={true}></ProdList>
                                     <div className="pagination">
                                         <Pagination simple defaultCurrent={1} onChange={this.changePagination.bind(null,null,item.categoryId,key)} total={item.total} hideOnSinglePage={false} pageSize={10}/>
                                     </div>

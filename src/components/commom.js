@@ -133,8 +133,9 @@ class ProdList extends React.Component {
         this.like=this.like.bind(this);
         this.dislike=this.dislike.bind(this);
         this.state = {
-            action:this.props.ifLikeList,
+            action:this.props.ifLike,
         }
+        console.log(this.props.list)
     }
     like(self,i,e){
         e.preventDefault();
