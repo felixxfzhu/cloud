@@ -44,8 +44,8 @@ class Detial extends React.Component {
                 imagePath1: "",
                 imagePath2: "",
                 prodAmount: {amount: "", currencyCode: null},
-                prodCategory: {categoryId: "", categoryName: ""},
                 productId: productId,
+                prodCategoryId:"",
                 title: ""
             },
             userInfo: userInfo?userInfo:{customerId:null,loginName:null,loginPassword:null},
@@ -91,9 +91,11 @@ class Detial extends React.Component {
             customerId: prodId,
             productId: userInfo?this.state.userInfo.customerId:1
         }
-        const res  = post(Paths.detail, parameter);
+        console.log(parameter)
+        const res  = post(Paths.details.url, parameter);
         res.then((response) =>{
             cussessNum++;
+            console.log(response)
             if(cussessNum=="2"){
                 this.setState({
                     isShowAndHide: "hide"
@@ -132,26 +134,23 @@ class Detial extends React.Component {
          var userInfo = JSON.parse(localStorage.getItem("userInfo"));
          if(userInfo){
             const params = {
-                "favouriteId":this.state.likes,
-                "customerId":this.state.userInfo.customerId,
-                "createTime":this.state.date,
-                "Product":{
-                    "productId":this.state.productDetial.productId,
-                    "title":this.state.productDetial.title,
-                    "description":this.state.productDetial.description,
-                    "imagePath1":this.state.productDetial.imagePath1,
-                    "prodCategory":{
-                        "categoryId":"",
-                        "categoryName":this.state.productDetial.prodCategory.categoryName
-                    },
-                    "prodAmount":{
-                        "amount":this.state.productDetial.prodAmount.amount,
-                        "currencyCode":"USD"
+                favouriteId: this.state.likes,
+                customerId: this.state.userInfo.customerId,
+                createTime: this.state.date,
+                Product:{
+                    productId: this.state.productDetial.productId,
+                    title: this.state.productDetial.title,
+                    description: this.state.productDetial.description,
+                    imagePath1: this.state.productDetial.imagePath1,
+                    prodCategoryId: this.state.prodCategoryId,
+                    prodAmount:{
+                        amount: this.state.productDetial.prodAmount.amount,
+                        currencyCode: "USD"
                     }
                 }
             }
             console.log(params);
-            const res2  = post(Paths.storeBehavior, params);
+            const res2  = post(Paths.storeBehavior.url, params);
             console.log(res2);
             clearInterval(this.timeID);
         }
@@ -166,26 +165,23 @@ class Detial extends React.Component {
         var userInfo = JSON.parse(localStorage.getItem("userInfo"));
         if(userInfo){
             const params = {
-                "favouriteId":this.state.likes,
-                "customerId":this.state.userInfo.customerId,
-                "createTime":this.state.date,
-                "Product":{
-                    "productId":this.state.productDetial.productId,
-                    "title":this.state.productDetial.title,
-                    "description":this.state.productDetial.description,
-                    "imagePath1":this.state.productDetial.imagePath1,
-                    "prodCategory":{
-                        "categoryId":"",
-                        "categoryName":this.state.productDetial.prodCategory.categoryName
-                    },
-                    "prodAmount":{
-                        "amount":this.state.productDetial.prodAmount.amount,
-                        "currencyCode":"USD"
+                favouriteId: this.state.likes,
+                customerId: this.state.userInfo.customerId,
+                createTime: this.state.date,
+                Product:{
+                    productId: this.state.productDetial.productId,
+                    title: this.state.productDetial.title,
+                    description: this.state.productDetial.description,
+                    imagePath1: this.state.productDetial.imagePath1,
+                    prodCategoryId: this.state.prodCategoryId,
+                    prodAmount:{
+                        amount: this.state.productDetial.prodAmount.amount,
+                        currencyCode: "USD"
                     }
                 }
             }
             console.log(params);
-            const BuyP  = post(Paths.storeBehavior, params);
+            const BuyP  = post(Paths.storeBehavior.url, params);
             BuyP.then(value =>{
                 const res = value.status;
                 if(value.status == '1'){
@@ -253,7 +249,6 @@ class Detial extends React.Component {
                          </div>
                         <div className="product_insure_main fl">
                             <h3 className="insure_main_productName">{this.state.productDetial.title}</h3>          
-                            <p className='product_insure_main_category'>ProductCategory: {this.state.productDetial.prodCategory.categoryName}</p>
                             <p className='product_insure_main_category'>ProductId: {this.state.productDetial.productId}</p>
                             <p className="insure_main_productIntroduction">Product Description: {this.state.productDetial.description}</p>
                             
