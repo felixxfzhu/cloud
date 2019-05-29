@@ -44,8 +44,8 @@ class Detial extends React.Component {
                 imagePath1: "",
                 imagePath2: "",
                 prodAmount: {amount: "", currencyCode: null},
-                prodCategory: {categoryId: "", categoryName: ""},
                 productId: productId,
+                prodCategoryId:"",
                 title: ""
             },
             userInfo: userInfo?userInfo:{customerId:null,loginName:null,loginPassword:null},
@@ -82,17 +82,19 @@ class Detial extends React.Component {
     }
     componentWillMount() {
         var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        let prodId = location.hash.split("=")[1];
         let cussessNum = 0;
         this.setState({
             isShowAndHide: "show"
         })
         const parameter = {
-            customerId: this.state.productDetial.productId,
-            productId: userInfo?this.state.userInfo.customerId:1
+            productId: prodId
         }
-        const res  = post(Paths.detail, parameter);
+        console.log(parameter)
+        const res  = post(Paths.details.url, parameter);
         res.then((response) =>{
             cussessNum++;
+            console.log(response)
             if(cussessNum=="2"){
                 this.setState({
                     isShowAndHide: "hide"
@@ -107,7 +109,7 @@ class Detial extends React.Component {
                 Message.error(message)
             }
         })
-        API.recommendation({customerId:userInfo?userInfo.customerId:3,page:{pageNum:1,pageLimit:5}}).then((response) => {
+        API.recommendation({customerId:userInfo?userInfo.customerId:1,page:{pageNum:1,pageLimit:5}}).then((response) => {
             cussessNum++;
             if(cussessNum=="2"){
                 this.setState({
@@ -131,26 +133,23 @@ class Detial extends React.Component {
          var userInfo = JSON.parse(localStorage.getItem("userInfo"));
          if(userInfo){
             const params = {
-                "favouriteId":this.state.likes,
-                "customerId":this.state.userInfo.customerId,
-                "createTime":this.state.date,
-                "Product":{
-                    "productId":this.state.productDetial.productId,
-                    "title":this.state.productDetial.title,
-                    "description":this.state.productDetial.description,
-                    "imagePath1":this.state.productDetial.imagePath1,
-                    "prodCategory":{
-                        "categoryId":"",
-                        "categoryName":this.state.productDetial.prodCategory.categoryName
-                    },
-                    "prodAmount":{
-                        "amount":this.state.productDetial.prodAmount.amount,
-                        "currencyCode":"USD"
+                favouriteId: this.state.likes,
+                customerId: this.state.userInfo.customerId,
+                createTime: this.state.date,
+                Product:{
+                    productId: this.state.productDetial.productId,
+                    title: this.state.productDetial.title,
+                    description: this.state.productDetial.description,
+                    imagePath1: this.state.productDetial.imagePath1,
+                    prodCategoryId: this.state.prodCategoryId,
+                    prodAmount:{
+                        amount: this.state.productDetial.prodAmount.amount,
+                        currencyCode: "USD"
                     }
                 }
             }
             console.log(params);
-            const res2  = post(Paths.storeBehavior, params);
+            const res2  = post(Paths.storeBehavior.url, params);
             console.log(res2);
             clearInterval(this.timeID);
         }
@@ -165,32 +164,30 @@ class Detial extends React.Component {
         var userInfo = JSON.parse(localStorage.getItem("userInfo"));
         if(userInfo){
             const params = {
-                "favouriteId":this.state.likes,
-                "customerId":this.state.userInfo.customerId,
-                "createTime":this.state.date,
-                "Product":{
-                    "productId":this.state.productDetial.productId,
-                    "title":this.state.productDetial.title,
-                    "description":this.state.productDetial.description,
-                    "imagePath1":this.state.productDetial.imagePath1,
-                    "prodCategory":{
-                        "categoryId":"",
-                        "categoryName":this.state.productDetial.prodCategory.categoryName
-                    },
-                    "prodAmount":{
-                        "amount":this.state.productDetial.prodAmount.amount,
-                        "currencyCode":"USD"
+                favouriteId: this.state.likes,
+                customerId: this.state.userInfo.customerId,
+                createTime: this.state.date,
+                Product:{
+                    productId: this.state.productDetial.productId,
+                    title: this.state.productDetial.title,
+                    description: this.state.productDetial.description,
+                    imagePath1: this.state.productDetial.imagePath1,
+                    prodCategoryId: this.state.prodCategoryId,
+                    prodAmount:{
+                        amount: this.state.productDetial.prodAmount.amount,
+                        currencyCode: "USD"
                     }
                 }
             }
             console.log(params);
-            const BuyP  = post(Paths.storeBehavior, params);
+            const BuyP  = post(Paths.storeBehavior.url, params);
             BuyP.then(value =>{
                 const res = value.status;
                 if(value.status == '1'){
                     success('buy success');
                     this.props.history.push( '/');
                     console.log('buy success');
+                    this.props.history.push( '/');
                 }
             })
         }else{
@@ -198,17 +195,15 @@ class Detial extends React.Component {
         }
     }
     componentWillReceiveProps(){
-        const {history} = this.props;
-        console.log(history.location.search.split("=")[1]);
+        let prodId = location.hash.split("=")[1];
         this.setState({
             isShowAndHide: "show"
         })
         const parameter = {
-            customerId: history.location.search.split("=")[1],
-            productId: this.state.userInfo.customerId
+            productId: prodId
         }
         console.log(parameter);
-        API.detail(parameter).then((response) => {
+        API.details(parameter).then((response) => {
             this.setState({
                 isShowAndHide: "hide"
             })
@@ -254,7 +249,6 @@ class Detial extends React.Component {
                          </div>
                         <div className="product_insure_main fl">
                             <h3 className="insure_main_productName">{this.state.productDetial.title}</h3>          
-                            <p className='product_insure_main_category'>ProductCategory: {this.state.productDetial.prodCategory.categoryName}</p>
                             <p className='product_insure_main_category'>ProductId: {this.state.productDetial.productId}</p>
                             <p className="insure_main_productIntroduction">Product Description: {this.state.productDetial.description}</p>
                             
@@ -275,7 +269,7 @@ class Detial extends React.Component {
                             </label>
                         </div> 
                     </div>
-                    <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp;Quality recommendation&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                    <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp; Guess You Like &nbsp;&nbsp;&nbsp;&nbsp;</h1>
                     <div>
                         <List list={this.state.recommendList} attention={true} progress={true} delete={true} deleteItem={this.deleteItem} ifLikeList={this.state.ifLikeList}></List>
                     </div>
