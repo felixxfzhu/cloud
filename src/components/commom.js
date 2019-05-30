@@ -25,8 +25,8 @@ class Head extends React.Component{
         return(
             <div className="header">
                 <Link to="/">
-                    <i className={"header-left icon iconfont icon-HSBC"}></i>
-                    <span className="logoName">HSBC</span>
+                    <i className={"header-left icon iconfont icon-home"}></i>
+                    <span className="logoName">Home</span>
                 </Link>
                 <Link to={this.props.info.toLink}>
                     <div className="login">{this.props.info.profile}&nbsp;&nbsp;
