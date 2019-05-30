@@ -185,6 +185,7 @@ class Detial extends React.Component {
                 const res = value.status;
                 if(value.status == '1'){
                     success('buy success');
+                    this.props.history.push( '/');
                     console.log('buy success');
                     this.props.history.push( '/');
                 }
@@ -269,7 +270,7 @@ class Detial extends React.Component {
                         </div> 
                     </div>
                     <h1 className="recommendation icon iconfont icon-hengxian">&nbsp;&nbsp;&nbsp;&nbsp; Guess You Like &nbsp;&nbsp;&nbsp;&nbsp;</h1>
-                    <div>
+                    <div className="recommendationList">
                         <List list={this.state.recommendList} attention={true} progress={true} delete={true} deleteItem={this.deleteItem} ifLikeList={this.state.ifLikeList}></List>
                     </div>
                 </div>
