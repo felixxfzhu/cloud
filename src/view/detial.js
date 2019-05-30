@@ -109,7 +109,7 @@ class Detial extends React.Component {
                 Message.error(message)
             }
         })
-        API.recommendation({customerId:userInfo?userInfo.customerId:1,page:{pageNum:1,pageLimit:5}}).then((response) => {
+        API.recommendation({customerId:userInfo?userInfo.customerId:1,page:{pageNum:1,pageLimit:11}}).then((response) => {
             cussessNum++;
             if(cussessNum=="2"){
                 this.setState({
