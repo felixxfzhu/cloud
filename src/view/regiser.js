@@ -36,30 +36,36 @@ class RegiserForm extends React.Component {
                     dateOfBirth:"",
                     age:""
                 }
-                console.log('Received values of form: ', values);
-               /*
-               this.setState({
+                let birthday = values.age._d.getTime();
+                let today = new Date();
+                let age = (today - birthday)/(365*24*60*60*1000);
+                console.log('Received values of form: ', today.getTime());
+                this.setState({
                     isShowAndHide: "show"
                 })
-               const parameter = {
+                const parameter = {
+                    customerId:Math.floor(Math.random()*10000),
                     loginName: values.userName,
-                    loginPassWord: MD(values.password)
+                    loginPassword: MD(values.password),
+                    name:values.userName,
+                    age:Math.floor(age),
+                    gender:values.gender
                 }
-                API.login(parameter).then((response) => {
+                API.regiser(parameter).then((response) => {
+                    this.setState({
+                        isShowAndHide: "hide"
+                    })
                     if(response){
                         const {status, message, result} = response;
                         if(status == "1"){
-                            this.setState({
-                                isShowAndHide: "hide"
-                            })
                             console.log(result);
                             localStorage.setItem("userInfo", JSON.stringify(result));
-                            this.props.history.push( '/');
+                            this.props.history.push( '/login');
                         }else{
-                            Message.error(message)
+                            Message.error(message);
                         }
                     }
-                })*/
+                })
             }
         });
     }
@@ -120,9 +126,9 @@ class RegiserForm extends React.Component {
                             })(<Input.Password onBlur={this.handleConfirmBlur} />)}
                         </Form.Item>
                         <Form.Item label="Gender">
-                            {getFieldDecorator('radio-group',{
+                            {getFieldDecorator('gender',{
                                 rules: [
-                                    {required: true, message: 'Please input your gender!'}
+                                    {required: true, message: 'Please select your gender!'}
                                 ]
                             })(
                                 <Radio.Group>
@@ -131,8 +137,20 @@ class RegiserForm extends React.Component {
                                 </Radio.Group>
                             )}
                         </Form.Item>
+                        <Form.Item label="Smoker">
+                            {getFieldDecorator('smoker',{
+                                rules: [
+                                    {required: true, message: 'Please select your Smoker!'}
+                                ]
+                            })(
+                                <Radio.Group>
+                                    <Radio value="Yes">Yes</Radio>
+                                    <Radio value="No">No</Radio>
+                                </Radio.Group>
+                            )}
+                        </Form.Item>
                         <Form.Item label="Birthday">
-                            {getFieldDecorator('date-picker', {
+                            {getFieldDecorator('age', {
                                 rules: [
                                     {required: true, message: 'Please input your birthday!'}
                                 ]
